@@ -1,0 +1,14 @@
+input.input{
+    height: 50px;
+    padding: 20px;
+    color: white;
+    border:none;
+    
+}
+input.input:focus{
+    outline: none;
+}
+
+input.input.white-opacity{
+    background-color: rgba(255,255,255,.3);
+}
