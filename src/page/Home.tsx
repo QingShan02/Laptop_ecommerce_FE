@@ -5,6 +5,7 @@ const Home = () => {
       <div className="content">
       </div>
     </UserLayout>
+    
   );
 }
 export default Home;
