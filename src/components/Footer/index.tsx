@@ -12,7 +12,7 @@ const Footer = () => {
                         <Button className="button ms-5 px-4">Search</Button>
                     </div>
                 </section>
-                <section className="info w-50 flex-row d-flex justify-content-around my-5">
+                <section className="info w-75 flex-row d-flex justify-content-around my-5">
                     <div className="mt-5">
                         <h3>Shopper.</h3>
                         <div className="d-flex flex-row justify-content-between">
@@ -58,9 +58,9 @@ const Footer = () => {
                         </ul>
                     </div>
                 </section>
-                <section className="end w-100 mt-5 flex-row d-flex justify-content-around">
-                    <h6 className="mt-5">© 2019 All rights reserved. Designed by Unvab.</h6>
-                    <div className="mt-5 flex-row d-flex justify-content-around" style={{width:"400px"}}>
+                <section className="end w-100 flex-row d-flex justify-content-around">
+                    <h6 className="my-5">© 2019 All rights reserved. Designed by Unvab.</h6>
+                    <div className="my-5 flex-row d-flex justify-content-around" style={{width:"400px"}}>
                         <img src="https://yevgenysim-turkey.github.io/shopper/assets/img/payment/mastercard.svg" alt="..." />
                         <img src="https://yevgenysim-turkey.github.io/shopper/assets/img/payment/visa.svg" alt="..." />
                         <img src="https://yevgenysim-turkey.github.io/shopper/assets/img/payment/amex.svg" alt="..." />
