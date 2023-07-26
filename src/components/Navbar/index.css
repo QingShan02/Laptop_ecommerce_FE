@@ -1,8 +1,3 @@
-a {
-    font-size: 14px;
-    font-weight: 700;
-}
-
 .superNav {
     position: absolute;
     font-size: 15px;
@@ -25,16 +20,14 @@ a {
     font-family: courier, arial, helvetica;
 }
 
-body {
+.navAll {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     font-family: 'Overpass', sans-serif;
     letter-spacing: 0px;
     font-size: 17px;
-    color: #8d8f90;
     font-weight: 400;
     line-height: 32px;
-    background-color: #edefef;
 }
 
 /* 
@@ -52,7 +45,7 @@ h6 {
     line-height: 1;
 } */
 
-h1 {
+/* h1 {
     font-size: 34px;
 }
 
@@ -102,7 +95,7 @@ a:focus,
 a:hover {
     text-decoration: none;
     color: #f85759;
-}
+} */
 
 
 
