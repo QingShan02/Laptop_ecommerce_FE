@@ -4,9 +4,9 @@ import Footer from "../Footer";
 
 function UserLayout({ children }: any) {
     return (
-        <div className="container-fluid" style={{height:"100vh"}}>
+        <div className="container-fluid p-0" style={{height:"100vh",backgroundColor:"#c7c7c787"}} >
             <Navbar />
-            {children}
+            <div className="content">{children}</div>
             <Footer/>
         </div>
     );
