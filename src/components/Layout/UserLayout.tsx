@@ -1,16 +1,14 @@
-import Footer from "../Footer";
+import React from "react";
 import Navbar from "../Navbar";
-import Search from "../Search";
-
+import Footer from "../Footer";
+import Details from "../Details";
 
 function UserLayout({ children }: any) {
     return (
-        <div className="container-fluid" style={{ height: "100vh" }}>
+        <div className="container-fluid p-0" style={{height:"100vh",backgroundColor:"#c7c7c787"}} >
             <Navbar />
-            {children}
-            <Search />
-
-            <Footer />
+            <div className="content">{children}</div>
+            <Footer/>
         </div>
     );
 }
