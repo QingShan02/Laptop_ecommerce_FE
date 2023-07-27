@@ -10,13 +10,7 @@ type FormValues = {
 }
 const Login = () => {
     const [user, setUser] = useState<Users>()
-    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
-        defaultValues: {
-            email: '',
-            password: '',
-            remember: false
-        }
-    });
+    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
     const onSubmit: SubmitHandler<FormValues> = (data) => {
         AuthService.login(data).then(
             (user) => {
