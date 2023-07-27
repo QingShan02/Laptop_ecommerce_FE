@@ -1,69 +1,162 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Brand } from "src/common/model/Brand";
+import { Product } from "src/common/model/Product";
+import filterPrService from "src/services/filterPr.service";
+import SelectInput from "../Select";
 
-interface Brand {
-    id: number,
-    name: string,
-    logo: string
+interface ProductFilter {
+    ram: string,
+    rom: string,
+    brandid: string,
+    os: string,
+    display: string
 }
 
 const Search = () => {
-    const [values, setValues] = useState<Brand[]>([]);
+    const [filter, setFilter] = useState<ProductFilter>({
+        ram: "",
+        rom: "",
+        brandid: "",
+        os: "",
+        display: ""
+    });
+    const [brands, setBrands] = useState<Brand[]>([{
+        id: "",
+        name: "",
+        logo: ""
+    }]);
+    const [data, setData] = useState<Product[]>([]);
+    // 
     useEffect(() => {
         axios
-            .get("http://localhost:8080/api/brand/findAll")
+            .get("http://localhost:8080/api/brands")
             .then((response) => {
-                setValues(response.data);
+                setBrands(response.data);
             })
             .catch((error) => {
                 console.error(error);
-            });
+            })
     }, []);
+    // 
+    const handleBrandId = (value: string) => {
+        setFilter(filter => ({
+            ...filter,
+            brandid: value,
+        }));
+        console.log(value);
+    };
+    const handleRam = (value: string) => {
+        setFilter(filter => ({
+            ...filter,
+            ram: value,
+        }));
+    };
+    const handleRom = (value: string) => {
+        setFilter(filter => ({
+            ...filter,
+            rom: value,
+        }));
+    };
+    const handleOs = (value: string) => {
+        setFilter(filter => ({
+            ...filter,
+            os: value,
+        }));
+    };
+    const handleDisplay = (value: string) => {
+        setFilter(filter => ({
+            ...filter,
+            display: value,
+        }));
+    };
+    const handleSubmit = () => {
+        filterPrService.filter(filter).then(
+            (item) => setData(item), error => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                alert(resMessage)
+            })
+    }
+    console.log(data);
 
     return (
         <div className="p-3 m-auto bg-white text-dark font-monospace">
             <div className="container">
-                <div className="row">
-                    <div className="col-12 col-sm-10 col-md-8">
-                        <h3>Mức giá</h3>
-                        <div className="row row-cols-4">
-                            <div className="col form-check form-check-inline">
-                                <input className="form-check-input" defaultChecked type="radio" name="inlineRadioOptions" id="inlineRadio1" defaultValue="option1" />
-                                <label className="form-check-label" htmlFor="inlineRadio1">Tất cả</label>
-                            </div>
-                            <div className="col form-check form-check-inline">
-                                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" defaultValue="option2" />
-                                <label className="form-check-label" htmlFor="inlineRadio2">Dưới 10 Triệu</label>
-                            </div>
-                            <div className="col form-check form-check-inline">
-                                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" defaultValue="option3" />
-                                <label className="form-check-label" htmlFor="inlineRadio3">Từ 10 - 15 Triệu</label>
-                            </div>
-                            <div className="col form-check form-check-inline">
-                                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" defaultValue="option4" />
-                                <label className="form-check-label" htmlFor="inlineRadio4">Từ 15 - 20 Triệu</label>
-                            </div>
-                            <div className="col form-check form-check-inline">
-                                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" defaultValue="option5" />
-                                <label className="form-check-label" htmlFor="inlineRadio5">Từ 20 - 25 Triệu</label>
-                            </div>
-                            <div className="col form-check form-check-inline">
-                                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio6" defaultValue="option6" />
-                                <label className="form-check-label" htmlFor="inlineRadio6">Trên 25 Triệu</label>
-                            </div>
-                        </div>
-
+                <div className="row w-75 m-auto">
+                    <div className="col">
+                        <SelectInput className="w-100" id="brandid" placeholder="Brand" onChange={handleBrandId} options={
+                            brands.map((value, key) => (
+                                {
+                                    value: key + 1 + "",
+                                    label: value.name
+                                }
+                            ))
+                        } />
                     </div>
                     <div className="col">
-                        <h3>Thương hiệu</h3>
-                        <select className="form-select me-3" aria-label="Default select example">
-                            <option value="findAll">Tất cả</option>
-                            {values.map((brand, key) => (
-                                <option value={brand.id} key={key}>{brand.name}</option>
-                            ))}
-                        </select>
+                        <SelectInput className="w-100" id="os" placeholder="Operating System" onChange={handleOs} options={[
+                            {
+                                value: 'macOS Big Sur',
+                                label: 'MacOS Big Sur',
+                            },
+                            {
+                                value: 'window 11',
+                                label: 'Window 11',
+                            }
+                        ]}
+                        />
                     </div>
-
+                    <div className="col">
+                        <SelectInput className="w-100" id="display" placeholder="Display" onChange={handleDisplay} options={[
+                            {
+                                value: '13.3 inch',
+                                label: '13.3 inch',
+                            },
+                            {
+                                value: '14 inch',
+                                label: '14 inch',
+                            },
+                            {
+                                value: '15.6 inch',
+                                label: '15.6 inch',
+                            }
+                        ]}
+                        />
+                    </div>
+                    <div className="col">
+                        <SelectInput className="w-100" id="rom" placeholder="Rom" onChange={handleRom} options={[
+                            {
+                                value: '256GB',
+                                label: '256GB',
+                            },
+                            {
+                                value: '512GB',
+                                label: '512GB',
+                            }
+                        ]}
+                        />
+                    </div>
+                    <div className="col">
+                        <SelectInput className="w-100" id="ram" placeholder="Ram" onChange={handleRam} options={[
+                            {
+                                value: '8GB',
+                                label: '8GB',
+                            },
+                            {
+                                value: '16GB',
+                                label: '16GB',
+                            }
+                        ]}
+                        />
+                    </div>
+                    <div className="col-1">
+                        <button type="button" className="w-100 btn" onClick={handleSubmit}><i className="bi bi-search"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
