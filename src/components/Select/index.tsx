@@ -1,32 +1,15 @@
-import { Select } from 'antd';
+import { SelectProps } from "src/common/types/SelectProps";
 
 
-interface InputProps {
-    id: string,
-    placeholder: string,
-    onChange?: (event: any, options: any) => void,
-    onSearch?: (event: any) => void,
-    options: { value: string, label: string }[] | undefined,
-    className?: string
-}
-
-const SelectInput = ({ ...props }: InputProps) => {
+const SelectInput = ({ ...props }: SelectProps) => {
     return (
         <>
-            <Select listItemHeight={10} listHeight={250}
-                showSearch
-                placeholder={props.placeholder}
-                // optionFilterProp="children"
-                onChange={props.onChange}
-                onSearch={props.onSearch}
-                filterOption={(input, option) =>
-                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                }
-                options={props.options}
-                // onBlur={props.onBlur}
-                id={props.id}
-                className={props.className}
-            />
+            <select name={props.name} className={props.className} id={props.id} onChange={props.onChange} {...props.register}>
+                <option value="">{props.name.toUpperCase()}</option>
+                {props.options.map((value) => (
+                    <option value={value.value} key={value.value}>{value.label.toUpperCase()}</option>
+                ))}
+            </select>
         </>
     );
 }

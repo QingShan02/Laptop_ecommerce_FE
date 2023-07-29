@@ -1,33 +1,28 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Brand } from "src/common/model/Brand";
-import { Product } from "src/common/model/Product";
-import filterPrService from "src/services/filterPr.service";
+import { ProductFilter } from "src/common/types/ProductFilterProps";
 import SelectInput from "../Select";
-
-interface ProductFilter {
-    ram: string,
-    rom: string,
-    brandid: string,
-    os: string,
-    display: string
-}
+import filterService from "src/services/filter.service";
+import Card from "../Card";
 
 const Search = () => {
-    const [filter, setFilter] = useState<ProductFilter>({
-        ram: "",
-        rom: "",
-        brandid: "",
-        os: "",
-        display: ""
-    });
+    // INIT
+    const ram = [{ id: "1", value: "4GB" }, { id: "2", value: "8GB" }, { id: "3", value: "16GB" }, { id: "4", value: "32GB" }, { id: "5", value: "64GB" }]
+    const rom = [{ id: "1", value: "4GB" }, { id: "2", value: "8GB" }, { id: "3", value: "16GB" }, { id: "4", value: "32GB" }, { id: "5", value: "64GB" }]
+    const display = [{ id: "1", value: "13.3 inch" }, { id: "2", value: "14 inch" }, { id: "3", value: "15.6 inch" }]
+    const os = [{ id: "1", value: "window 11" }, { id: "2", value: "macOS Big Sur" }]
+    // useState
+    const [products, setProducts] = useState<Product[]>();
     const [brands, setBrands] = useState<Brand[]>([{
         id: "",
         name: "",
         logo: ""
     }]);
-    const [data, setData] = useState<Product[]>([]);
-    // 
+    // useForm
+    const { register, handleSubmit } = useForm<ProductFilter>();
+    // LOADING BRAND
     useEffect(() => {
         axios
             .get("http://localhost:8080/api/brands")
@@ -35,132 +30,93 @@ const Search = () => {
                 setBrands(response.data);
             })
             .catch((error) => {
-                console.error(error);
+                console.log('error', error)
+            });
+        axios
+            .get("http://localhost:8080/api/products")
+            .then((response) => {
+                setProducts(response.data);
             })
+            .catch((error) => {
+                console.log('error', error)
+            })
+
     }, []);
-    // 
-    const handleBrandId = (value: string) => {
-        setFilter(filter => ({
-            ...filter,
-            brandid: value,
-        }));
-        console.log(value);
-    };
-    const handleRam = (value: string) => {
-        setFilter(filter => ({
-            ...filter,
-            ram: value,
-        }));
-    };
-    const handleRom = (value: string) => {
-        setFilter(filter => ({
-            ...filter,
-            rom: value,
-        }));
-    };
-    const handleOs = (value: string) => {
-        setFilter(filter => ({
-            ...filter,
-            os: value,
-        }));
-    };
-    const handleDisplay = (value: string) => {
-        setFilter(filter => ({
-            ...filter,
-            display: value,
-        }));
-    };
-    const handleSubmit = () => {
-        filterPrService.filter(filter).then(
-            (item) => setData(item), error => {
-                const resMessage =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-                alert(resMessage)
-            })
+    // SUBMIT FORM
+    const onSubmit: SubmitHandler<ProductFilter> = (data) => {
+        filterService.filter(data)
+            .then((product) => (setProducts(product)))
+            .catch(errors => console.log(errors));
     }
-    console.log(data);
+    // TESTING
+    console.log(products);
 
     return (
-        <div className="p-3 m-auto bg-white text-dark font-monospace">
+        <div className="p-3 m-auto bg-white text-dark font-monospace" >
             <div className="container">
-                <div className="row w-75 m-auto">
-                    <div className="col">
-                        <SelectInput className="w-100" id="brandid" placeholder="Brand" onChange={handleBrandId} options={
-                            brands.map((value, key) => (
-                                {
-                                    value: key + 1 + "",
-                                    label: value.name
-                                }
-                            ))
-                        } />
+                <form action="" onSubmit={handleSubmit(onSubmit)}>
+                    <div className="row w-75 m-auto">
+                        <div className="col">
+                            <SelectInput id='brand' name="brand" className="form-select" register={register("brandid")} options={
+                                brands.map((value) => (
+                                    {
+                                        value: value.id + "",
+                                        label: value.name
+                                    }
+                                ))
+                            } />
+                        </div>
+                        <div className="col">
+                            <SelectInput id='ram' name="ram" className="form-select" register={register("ram")} options={
+                                ram.map((value) => (
+                                    {
+                                        value: value.value,
+                                        label: value.value
+                                    }
+                                ))
+                            } />
+                        </div>
+                        <div className="col">
+                            <SelectInput id='rom' name="rom" className="form-select" register={register("rom")} options={
+                                rom.map((value) => (
+                                    {
+                                        value: value.value,
+                                        label: value.value
+                                    }
+                                ))
+                            } />
+                        </div>
+                        <div className="col">
+                            <SelectInput id='display' name="display" className="form-select" register={register("display")} options={
+                                display.map((value) => (
+                                    {
+                                        value: value.value,
+                                        label: value.value
+                                    }
+                                ))
+                            } />
+                        </div>
+                        <div className="col">
+                            <SelectInput id='os' name="os" className="form-select" register={register("os")} options={
+                                os.map((value) => (
+                                    {
+                                        value: value.value,
+                                        label: value.value
+                                    }
+                                ))
+                            } />
+                        </div>
+                        <div className="col-1">
+                            <button type="submit" className="btn btn-default"><i className="bi bi-search"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div className="col">
-                        <SelectInput className="w-100" id="os" placeholder="Operating System" onChange={handleOs} options={[
-                            {
-                                value: 'macOS Big Sur',
-                                label: 'MacOS Big Sur',
-                            },
-                            {
-                                value: 'window 11',
-                                label: 'Window 11',
-                            }
-                        ]}
-                        />
-                    </div>
-                    <div className="col">
-                        <SelectInput className="w-100" id="display" placeholder="Display" onChange={handleDisplay} options={[
-                            {
-                                value: '13.3 inch',
-                                label: '13.3 inch',
-                            },
-                            {
-                                value: '14 inch',
-                                label: '14 inch',
-                            },
-                            {
-                                value: '15.6 inch',
-                                label: '15.6 inch',
-                            }
-                        ]}
-                        />
-                    </div>
-                    <div className="col">
-                        <SelectInput className="w-100" id="rom" placeholder="Rom" onChange={handleRom} options={[
-                            {
-                                value: '256GB',
-                                label: '256GB',
-                            },
-                            {
-                                value: '512GB',
-                                label: '512GB',
-                            }
-                        ]}
-                        />
-                    </div>
-                    <div className="col">
-                        <SelectInput className="w-100" id="ram" placeholder="Ram" onChange={handleRam} options={[
-                            {
-                                value: '8GB',
-                                label: '8GB',
-                            },
-                            {
-                                value: '16GB',
-                                label: '16GB',
-                            }
-                        ]}
-                        />
-                    </div>
-                    <div className="col-1">
-                        <button type="button" className="w-100 btn" onClick={handleSubmit}><i className="bi bi-search"></i></button>
-                    </div>
-                </div>
+                </form>
+                <div className="row w-100 mt-3">{products?.map((value, key) => (
+                    <Card id={value.id} key={key} className="col-4" data={value} />
+                ))}</div>
             </div>
-        </div>
-
+        </div >
     );
 }
 

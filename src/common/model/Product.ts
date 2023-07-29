@@ -11,5 +11,5 @@ export interface Product {
     price: number,
     quantity: number,
     logo: string,
-    brand: Brand
+    brand?: Brand
 }

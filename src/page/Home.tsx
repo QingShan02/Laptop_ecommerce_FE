@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import UserLayout from "../components/Layout/UserLayout";
-import { useFetch } from "src/util/CustomHook";
 import Card from "src/components/Card";
 import Carousel from "src/components/Carousel";
+import { useFetch } from "src/util/CustomHook";
+import UserLayout from "../components/Layout/UserLayout";
+import Search from "src/components/Search";
 const Home = () => {
   const [data, setData] = useState<Product[]>();
   useEffect(() => {
     async function init() {
-      const { data: result } = await useFetch.get("/api/product");
+      const { data: result } = await useFetch.get("/api/products");
       setData(result);
     }
     init();
@@ -16,23 +17,29 @@ const Home = () => {
     <UserLayout>
       <div className="card mb-3">
         <div className="card-body">
-          <Carousel/>
+          <Carousel />
         </div>
       </div>
-      <div className="card">
+      <div className="card mb-3">
+        <div className="card-body">
+          <Search />
+        </div>
+      </div>
+      {/* <div className="card">
         <div className="card-body">
           <h3 className="card-title text-danger">Khuyến mãi HOT</h3>
           <div className="row w-100 m-0">
             {
-              data?.map(s => {
+              data?.map((s, key) => {
                 return (
-                  <Card id={s.id} className="col-4" data={s} />
+                  <Card id={s.id} key={key} className="col-4" data={s} />
                 )
               })
             }
           </div>
         </div>
-      </div>
+      </div> */}
+
     </UserLayout>
   );
 }
