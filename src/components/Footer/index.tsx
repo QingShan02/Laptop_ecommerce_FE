@@ -60,7 +60,7 @@ const Footer = () => {
                 </section>
                 <section className="end w-100 flex-row d-flex justify-content-around">
                     <h6 className="my-5">© 2019 All rights reserved. Designed by Unvab.</h6>
-                    <div className="my-5 flex-row d-flex justify-content-around" style={{width:"400px"}}>
+                    <div className="my-5 flex-row d-flex justify-content-around" style={{ width: "400px" }}>
                         <img src="https://yevgenysim-turkey.github.io/shopper/assets/img/payment/mastercard.svg" alt="..." />
                         <img src="https://yevgenysim-turkey.github.io/shopper/assets/img/payment/visa.svg" alt="..." />
                         <img src="https://yevgenysim-turkey.github.io/shopper/assets/img/payment/amex.svg" alt="..." />
