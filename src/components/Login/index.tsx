@@ -1,41 +1,21 @@
-import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import Users from "src/common/model/Users";
-import AuthService from "src/services/auth.service";
+import { useFetch } from "src/util/CustomHook";
 import Input from "../Input";
-type FormValues = {
-    email: string,
-    password: string,
-    remember: boolean
-}
+import { LoginProps } from "src/common/types/LoginProps";
+
 const Login = () => {
-    const [user, setUser] = useState<Users>()
-    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
-    const onSubmit: SubmitHandler<FormValues> = (data) => {
-        AuthService.login(data).then(
-            (user) => {
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginProps>();
+    const onSubmit: SubmitHandler<LoginProps> = (data) => {
+        async function init() {
+            await useFetch.post("/api/auth/login", data).then(result => {
                 if (data.remember) {
-                    localStorage.setItem("user", JSON.stringify(user));
-                    sessionStorage.setItem("user", JSON.stringify(user));
+                    document.cookie = `user=${JSON.stringify(result.data)}`
                 }
-                setUser(user);
                 window.location.href = "http://localhost:3000/"
-            },
-            error => {
-                const resMessage =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-                alert(resMessage)
-            }
-        )
+            }).catch(errors => alert(errors.response.data.message))
+        }
+        init();
     };
-    // #TEST
-    // console.log(sessionStorage.getItem("user"));
-    // console.log(localStorage.getItem("user"));
-    console.log(user);
 
     return (
         <>
@@ -77,10 +57,6 @@ const Login = () => {
                                     <label className="form-check-label" htmlFor="form2Example31"> Remember me </label>
                                 </div>
                             </div>
-                            <i className="col">
-                                {/* Simple link */}
-                                <a href="/forgot">Forgot password?</a>
-                            </i>
                         </div>
                         {/* Submit button */}
                         <div className="row">

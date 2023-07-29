@@ -1,11 +1,6 @@
 import { Link } from "react-router-dom";
+import { CardProps } from "src/common/types/CartProps";
 import { formatter } from "src/util/formatCurrency";
-
-interface CardProps {
-    id: string | number,
-    className?: string,
-    data: Product
-}
 
 const Card = ({ ...props }: CardProps) => {
     return (

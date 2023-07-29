@@ -1,11 +1,17 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Brand } from "src/common/model/Brand";
 import { ProductFilter } from "src/common/types/ProductFilterProps";
-import SelectInput from "../Select";
-import filterService from "src/services/filter.service";
+import { useFetch } from "src/util/CustomHook";
 import Card from "../Card";
+import SelectInput from "../Select";
+import { findBy_Brands_Products } from "src/api/SearchPage/route";
+import { Product } from "src/common/model/Product";
+
+interface Data {
+    brands: Brand[],
+    products: Product[]
+}
 
 const Search = () => {
     // INIT
@@ -15,41 +21,21 @@ const Search = () => {
     const os = [{ id: "1", value: "window 11" }, { id: "2", value: "macOS Big Sur" }]
     // useState
     const [products, setProducts] = useState<Product[]>();
-    const [brands, setBrands] = useState<Brand[]>([{
-        id: "",
-        name: "",
-        logo: ""
-    }]);
+    const [data, setData] = useState<Data>({ brands: [], products: [] });
     // useForm
     const { register, handleSubmit } = useForm<ProductFilter>();
-    // LOADING BRAND
+    // LOADING
     useEffect(() => {
-        axios
-            .get("http://localhost:8080/api/brands")
-            .then((response) => {
-                setBrands(response.data);
-            })
-            .catch((error) => {
-                console.log('error', error)
-            });
-        axios
-            .get("http://localhost:8080/api/products")
-            .then((response) => {
-                setProducts(response.data);
-            })
-            .catch((error) => {
-                console.log('error', error)
-            })
-
+        findBy_Brands_Products().then((result) => { setData(result); setProducts(result.products) }).catch(error => console.log(error));
     }, []);
     // SUBMIT FORM
     const onSubmit: SubmitHandler<ProductFilter> = (data) => {
-        filterService.filter(data)
-            .then((product) => (setProducts(product)))
-            .catch(errors => console.log(errors));
+        async function init() {
+            const { data: result } = await useFetch.post("/api/product/filter", data);
+            setProducts(result);
+        }
+        init();
     }
-    // TESTING
-    console.log(products);
 
     return (
         <div className="p-3 m-auto bg-white text-dark font-monospace" >
@@ -58,7 +44,7 @@ const Search = () => {
                     <div className="row w-75 m-auto">
                         <div className="col">
                             <SelectInput id='brand' name="brand" className="form-select" register={register("brandid")} options={
-                                brands.map((value) => (
+                                data?.brands.map((value) => (
                                     {
                                         value: value.id + "",
                                         label: value.name
