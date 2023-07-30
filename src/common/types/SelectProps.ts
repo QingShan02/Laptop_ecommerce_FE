@@ -5,6 +5,7 @@ export interface SelectProps {
     className: string,
     name: string,
     onChange?: (event: any) => void,
-    options: { value: string, label: string }[],
-    register?: UseFormRegisterReturn;
+    options: { value: string | number, label: string }[],
+    register?: UseFormRegisterReturn,
+    defaultValue?: number
 }
