@@ -33,6 +33,8 @@ const Search = () => {
         async function init() {
             const { data: result } = await useFetch.post("/api/products/filter", data);
             setProducts(result);
+            console.log(result);
+
         }
         init();
     }
@@ -43,7 +45,7 @@ const Search = () => {
                 <form action="" onSubmit={handleSubmit(onSubmit)}>
                     <div className="row w-75 m-auto">
                         <div className="col">
-                            <SelectInput id='brand' name="brand" key="brand" className="form-select" register={register("brandid")} options={
+                            <SelectInput id='brand' name="brand" className="form-select" register={register("brandid")} options={
                                 data?.brands.map((value) => (
                                     {
                                         value: value.id + "",
@@ -53,7 +55,7 @@ const Search = () => {
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput id='ram' name="ram" key="ram" className="form-select" register={register("ram")} options={
+                            <SelectInput id='ram' name="ram" className="form-select" register={register("ram")} options={
                                 ram.map((value) => (
                                     {
                                         value: value.value,
@@ -63,7 +65,7 @@ const Search = () => {
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput id='rom' name="rom" key="rom" className="form-select" register={register("rom")} options={
+                            <SelectInput id='rom' name="rom" className="form-select" register={register("rom")} options={
                                 rom.map((value) => (
                                     {
                                         value: value.value,
@@ -73,7 +75,7 @@ const Search = () => {
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput id='display' name="display" key="display" className="form-select" register={register("display")} options={
+                            <SelectInput id='display' name="display" className="form-select" register={register("display")} options={
                                 display.map((value) => (
                                     {
                                         value: value.value,
@@ -83,7 +85,7 @@ const Search = () => {
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput id='os' name="os" key="os" className="form-select" register={register("os")} options={
+                            <SelectInput id='os' name="os" className="form-select" register={register("os")} options={
                                 os.map((value) => (
                                     {
                                         value: value.value,
