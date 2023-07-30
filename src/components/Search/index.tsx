@@ -9,43 +9,70 @@ import { findBy_Brands_Products } from "src/api/SearchPage/route";
 import { Product } from "src/common/model/Product";
 
 interface Data {
-    brands: Brand[],
-    products: Product[]
+    brands: Array<Brand>,
+    products: Product[],
+    brandid: Array<string>
 }
 
 const Search = () => {
     // INIT
-    const ram = [{ id: "1", value: "4GB" }, { id: "2", value: "8GB" }, { id: "3", value: "16GB" }, { id: "4", value: "32GB" }, { id: "5", value: "64GB" }]
-    const rom = [{ id: "1", value: "4GB" }, { id: "2", value: "8GB" }, { id: "3", value: "16GB" }, { id: "4", value: "32GB" }, { id: "5", value: "64GB" }]
-    const display = [{ id: "1", value: "13.3 inch" }, { id: "2", value: "14 inch" }, { id: "3", value: "15.6 inch" }]
-    const os = [{ id: "1", value: "window 11" }, { id: "2", value: "macOS Big Sur" }]
+    const ram = ["4GB", "8GB", "16GB", "32GB", "64GB"]
+    const rom = ['256GB', '512GB', '1TB', '2TB']
+    const display = ['13.3 inch', '14 inch', '15.6 inch']
+    const os = ['window 11', 'macOS Big Sur']
     // useState
     const [products, setProducts] = useState<Product[]>();
-    const [data, setData] = useState<Data>({ brands: [], products: [] });
+    const [data, setData] = useState<Data>({
+        brands: [], products: [], brandid: []
+    });
     // useForm
-    const { register, handleSubmit } = useForm<ProductFilter>();
+    const { register, setValue, handleSubmit } = useForm<ProductFilter>();
+    register("brandid", { value: data.brandid })
+    register("ram", { value: ram })
+    register("rom", { value: rom })
+    register("display", { value: display })
+    register("os", { value: os })
     // LOADING
     useEffect(() => {
         findBy_Brands_Products().then((result) => { setData(result); setProducts(result.products) }).catch(error => console.log(error));
     }, []);
     // SUBMIT FORM
-    const onSubmit: SubmitHandler<ProductFilter> = (data) => {
+    const onSubmit: SubmitHandler<ProductFilter> = (form) => {
         async function init() {
-            const { data: result } = await useFetch.post("/api/products/filter", data);
-            setProducts(result);
-            console.log(result);
-
+            const { data: result } = await useFetch.post("/api/products/filter", form);
+            if(result.length > 0){
+                setProducts(result);
+            }else setProducts(undefined);
         }
         init();
-    }
 
+    }
+    const handleOnchange = (ev: any) => {
+        const name = ev.target.name;
+        const value = ev.target.value;
+        if (name == 'brandid' && value != 0) {
+            setValue("brandid", [value])
+        }
+        if (name == 'ram' && value != 0) {
+            setValue("ram", [value])
+        }
+        if (name == 'rom' && value != 0) {
+            setValue("rom", [value])
+        }
+        if (name == 'os' && value != 0) {
+            setValue("os", [value])
+        }
+        if (name == 'display' && value != 0) {
+            setValue("display", [value])
+        }
+    }
     return (
         <div className="p-3 m-auto bg-white text-dark font-monospace" >
             <div className="container">
                 <form action="" onSubmit={handleSubmit(onSubmit)}>
                     <div className="row w-75 m-auto">
                         <div className="col">
-                            <SelectInput id='brand' name="brand" className="form-select" register={register("brandid")} options={
+                            <SelectInput defaultValue={0} id='brand' name="brandid" onChange={handleOnchange} className="form-select" options={
                                 data?.brands.map((value) => (
                                     {
                                         value: value.id + "",
@@ -55,41 +82,41 @@ const Search = () => {
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput id='ram' name="ram" className="form-select" register={register("ram")} options={
+                            <SelectInput defaultValue={0} id='ram' name="ram" className="form-select" onChange={handleOnchange} options={
                                 ram.map((value) => (
                                     {
-                                        value: value.value,
-                                        label: value.value
+                                        value: value,
+                                        label: value
                                     }
                                 ))
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput id='rom' name="rom" className="form-select" register={register("rom")} options={
+                            <SelectInput defaultValue={0} id='rom' name="rom" className="form-select" onChange={handleOnchange} options={
                                 rom.map((value) => (
                                     {
-                                        value: value.value,
-                                        label: value.value
+                                        value: value,
+                                        label: value
                                     }
                                 ))
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput id='display' name="display" className="form-select" register={register("display")} options={
+                            <SelectInput defaultValue={0} id='display' name="display" className="form-select" onChange={handleOnchange} options={
                                 display.map((value) => (
                                     {
-                                        value: value.value,
-                                        label: value.value
+                                        value: value,
+                                        label: value
                                     }
                                 ))
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput id='os' name="os" className="form-select" register={register("os")} options={
+                            <SelectInput defaultValue={0} id='os' name="os" className="form-select" onChange={handleOnchange} options={
                                 os.map((value) => (
                                     {
-                                        value: value.value,
-                                        label: value.value
+                                        value: value,
+                                        label: value
                                     }
                                 ))
                             } />
@@ -100,11 +127,13 @@ const Search = () => {
                         </div>
                     </div>
                 </form>
-                <div className="row w-100">{products?.map((value, key) => (
-                    <div className="col-4">
-                        <Card id={value.id} key={key} className="mt-3" data={value} />
-                    </div>
-                ))}</div>
+                <div className="row w-100">
+                    {products ? products.map((value, key) => (
+                        <div className="col-4">
+                            <Card id={value.id} key={key} className="mt-3" data={value} />
+                        </div>
+                    )) : <h3 className="text-danger text-center mt-5 fw-bold">Không tìm thấy sản phẩm</h3>}
+                </div>
             </div>
         </div >
     );

@@ -23,7 +23,7 @@ const Home = () => {
       </div>
       <div className="card mb-3">
         <div className="card-body">
-          <Search />
+          <Search/>
         </div>
       </div>
       <div className="card">
