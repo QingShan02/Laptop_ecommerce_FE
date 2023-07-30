@@ -2,7 +2,7 @@ import React from 'react';
 import "./index.css";
 const Navbar = () => {
     return (
-        <div>
+        <div className='navAll'>
             {/* header */}
             <div className="page-header">
                 <div className="container">
@@ -66,13 +66,13 @@ const Navbar = () => {
             </div>
             <div className="card-section px-5">
                 <div className="container-fluid">
-                    <div className="card-block bg-white mb30">
+                    <div className="card-block bg-white">
                         <div className="row">
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 {/* section-title */}
                                 <div className="section-title mb-0">
                                     <div className='nav1'>
-                                        <nav className="navbar navbar-expand-lg bg-white  navbar-light p-3 shadow-sm">
+                                        <nav className="navbar navbar-expand-lg bg-white  navbar-light p-3 shadow">
                                             <div className="container">
                                                 <a className="navbar-brand" href="#"><i className="fa-solid fa-shop me-2" /> <strong>Zu Hot</strong></a>
                                                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -120,11 +120,6 @@ const Navbar = () => {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="row">
-                        <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
-                            Created for <a href="https://easetemplate.com/downloads/digital-marketing-website-template-hike-bold-design/" target="_blank">easetemplate</a>
-                        </div>
-                    </div> */}
                 </div>
             </div>
         </div>
