@@ -16,7 +16,7 @@ const Navbar = () => {
                 </div>
             </div>
             {/* navbar */}
-            <div className="superNav navbar navbar-expand-lg  sticky-top navbar-light p-1 shadow-sm" >
+            <div className="superNav navbar navbar-expand-lg sticky-top navbar-light p-1 shadow-sm" >
                 <div className="container text-light">
                     <div className="me-xl-8" style={{ marginRight: "30px" }}>
                         <i className="bi bi-truck" /> <span className="heading-xxxs">Free shipping worldwide</span>

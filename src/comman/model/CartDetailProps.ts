@@ -3,5 +3,10 @@ export interface CartDetailProps {
     name: string,
     price: number,
     quantity: number,
-    totalPrice?: number
+    totalPrice?: number,
+    totalItems: number,
+    shippingPrice: number,
+    priceExcludeTax: number,
+    priceIncludeTax: number,
+    totalPrice2: number
 }
