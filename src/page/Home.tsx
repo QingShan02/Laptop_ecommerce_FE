@@ -29,11 +29,13 @@ const Home = () => {
       <div className="card">
         <div className="card-body">
           <h3 className="card-title text-danger">Khuyến mãi HOT</h3>
-          <div className="row w-100 m-0">
+          <div className="row w-100 m-auto p-3">
             {
               data?.map((s, key) => {
                 return (
-                  <Card id={s.id} key={key} className="col-4" data={s} />
+                  <div key={key} className="col-4">
+                    <Card id={s.id} className="mt-3" data={s} />
+                  </div>
                 )
               })
             }
