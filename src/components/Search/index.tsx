@@ -29,7 +29,7 @@ const Search = () => {
         findBy_Brands_Products().then((result) => { setData(result); setProducts(result.products) }).catch(error => console.log(error));
     }, []);
     // SUBMIT FORM
-    const onSubmit: SubmitHandler<ProductFilter> = (data) => {
+    const onSubmit: SubmitHandler<ProductFilter> = (form) => {
         async function init() {
             const { data: result } = await useFetch.post("/api/products/filter", data);
             setProducts(result);
@@ -37,6 +37,26 @@ const Search = () => {
         init();
     }
 
+    }
+    const handleOnchange = (ev: any) => {
+        const name = ev.target.name;
+        const value = ev.target.value;
+        if (name == 'brandid' && value != 0) {
+            setValue("brandid", [value])
+        }
+        if (name == 'ram' && value != 0) {
+            setValue("ram", [value])
+        }
+        if (name == 'rom' && value != 0) {
+            setValue("rom", [value])
+        }
+        if (name == 'os' && value != 0) {
+            setValue("os", [value])
+        }
+        if (name == 'display' && value != 0) {
+            setValue("display", [value])
+        }
+    }
     return (
         <div className="p-3 m-auto bg-white text-dark font-monospace" >
             <div className="container">
