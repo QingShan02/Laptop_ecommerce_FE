@@ -7,5 +7,5 @@ export interface SelectProps {
     onChange?: (event: any) => void,
     options: Array<{ value: string | number , label: string }>,
     register?: UseFormRegisterReturn,
-    defaultValue?: number 
+    defaultValue?: number | string
 }

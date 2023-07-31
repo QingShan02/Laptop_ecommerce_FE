@@ -9,29 +9,21 @@ import { findBy_Brands_Products } from "src/api/SearchPage/route";
 import { Product } from "src/common/model/Product";
 
 interface Data {
-    brands: Array<Brand>,
-    products: Product[],
-    brandid: Array<string>
+    brands: Brand[],
+    products: Product[]
 }
 
 const Search = () => {
     // INIT
     const ram = ["4GB", "8GB", "16GB", "32GB", "64GB"]
-    const rom = ['256GB', '512GB', '1TB', '2TB']
-    const display = ['13.3 inch', '14 inch', '15.6 inch']
-    const os = ['window 11', 'macOS Big Sur']
+    const rom = ["4GB", "8GB", "16GB", "32GB", "64GB"]
+    const display = ["13.3 inch", "14 inch", "15.6 inch"]
+    const os = ["window 11", "macOS Big Sur"]
     // useState
     const [products, setProducts] = useState<Product[]>();
-    const [data, setData] = useState<Data>({
-        brands: [], products: [], brandid: []
-    });
+    const [data, setData] = useState<Data>({ brands: [], products: [] });
     // useForm
-    const { register, setValue, handleSubmit } = useForm<ProductFilter>();
-    register("brandid", { value: data.brandid })
-    register("ram", { value: ram })
-    register("rom", { value: rom })
-    register("display", { value: display })
-    register("os", { value: os })
+    const { register, handleSubmit } = useForm<ProductFilter>();
     // LOADING
     useEffect(() => {
         findBy_Brands_Products().then((result) => { setData(result); setProducts(result.products) }).catch(error => console.log(error));
@@ -39,12 +31,11 @@ const Search = () => {
     // SUBMIT FORM
     const onSubmit: SubmitHandler<ProductFilter> = (form) => {
         async function init() {
-            const { data: result } = await useFetch.post("/api/products/filter", form);
-            if(result.length > 0){
-                setProducts(result);
-            }else setProducts(undefined);
+            const { data: result } = await useFetch.post("/api/products/filter", data);
+            setProducts(result);
         }
         init();
+    }
 
     }
     const handleOnchange = (ev: any) => {
@@ -72,17 +63,17 @@ const Search = () => {
                 <form action="" onSubmit={handleSubmit(onSubmit)}>
                     <div className="row w-75 m-auto">
                         <div className="col">
-                            <SelectInput defaultValue={0} id='brand' name="brandid" onChange={handleOnchange} className="form-select" options={
-                                data?.brands.map((value) => (
+                            <SelectInput id='brand' defaultValue={0} name="brand" className="form-select" register={register("brandid")} options={
+                                data?.brands.map((value, key) => (
                                     {
-                                        value: value.id + "",
+                                        value: key + 1 + "",
                                         label: value.name
                                     }
                                 ))
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput defaultValue={0} id='ram' name="ram" className="form-select" onChange={handleOnchange} options={
+                            <SelectInput id='ram' defaultValue={"0"} name="ram" className="form-select" register={register("ram")} options={
                                 ram.map((value) => (
                                     {
                                         value: value,
@@ -92,7 +83,7 @@ const Search = () => {
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput defaultValue={0} id='rom' name="rom" className="form-select" onChange={handleOnchange} options={
+                            <SelectInput id='rom' defaultValue={"0"} name="rom" className="form-select" register={register("rom")} options={
                                 rom.map((value) => (
                                     {
                                         value: value,
@@ -102,7 +93,7 @@ const Search = () => {
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput defaultValue={0} id='display' name="display" className="form-select" onChange={handleOnchange} options={
+                            <SelectInput id='display' defaultValue={"0"} name="display" className="form-select" register={register("display")} options={
                                 display.map((value) => (
                                     {
                                         value: value,
@@ -112,9 +103,10 @@ const Search = () => {
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput defaultValue={0} id='os' name="os" className="form-select" onChange={handleOnchange} options={
-                                os.map((value) => (
+                            <SelectInput id='os' defaultValue={"0"} name="os" className="form-select" register={register("os")} options={
+                                os.map((value, key) => (
                                     {
+                                        key: key,
                                         value: value,
                                         label: value
                                     }
@@ -122,18 +114,16 @@ const Search = () => {
                             } />
                         </div>
                         <div className="col-1">
-                            <button type="submit" className="btn btn-default"><i className="bi bi-search"></i>
+                            <button type="submit" defaultValue={"0"} className="btn btn-default"><i className="bi bi-search"></i>
                             </button>
                         </div>
                     </div>
                 </form>
-                <div className="row w-100">
-                    {products ? products.map((value, key) => (
-                        <div className="col-4">
-                            <Card id={value.id} key={key} className="mt-3" data={value} />
-                        </div>
-                    )) : <h3 className="text-danger text-center mt-5 fw-bold">Không tìm thấy sản phẩm</h3>}
-                </div>
+                <div className="row w-100">{products?.map((value, key) => (
+                    <div key={key} className="col-4">
+                        <Card id={value.id} className="mt-3" data={value} />
+                    </div>
+                ))}</div>
             </div>
         </div >
     );
