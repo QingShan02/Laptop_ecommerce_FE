@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Brand } from "src/common/model/Brand";
@@ -37,26 +38,25 @@ const Search = () => {
         init();
     }
 
-    }
-    const handleOnchange = (ev: any) => {
-        const name = ev.target.name;
-        const value = ev.target.value;
-        if (name == 'brandid' && value != 0) {
-            setValue("brandid", [value])
-        }
-        if (name == 'ram' && value != 0) {
-            setValue("ram", [value])
-        }
-        if (name == 'rom' && value != 0) {
-            setValue("rom", [value])
-        }
-        if (name == 'os' && value != 0) {
-            setValue("os", [value])
-        }
-        if (name == 'display' && value != 0) {
-            setValue("display", [value])
-        }
-    }
+    // const handleOnchange = (ev: any) => {
+    //     const name = ev.target.name;
+    //     const value = ev.target.value;
+    //     if (name == 'brandid' && value != 0) {
+    //         setData("brandid", [value])
+    //     }
+    //     if (name == 'ram' && value != 0) {
+    //         setData("ram", [value])
+    //     }
+    //     if (name == 'rom' && value != 0) {
+    //         setData("rom", [value])
+    //     }
+    //     if (name == 'os' && value != 0) {
+    //         setData("os", [value])
+    //     }
+    //     if (name == 'display' && value != 0) {
+    //         setData("display", [value])
+    //     }
+    // }
     return (
         <div className="p-3 m-auto bg-white text-dark font-monospace" >
             <div className="container">
