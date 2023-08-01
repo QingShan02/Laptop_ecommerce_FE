@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Product } from "src/common/model/Product";
 import Card from "src/components/Card";
 import Carousel from "src/components/Carousel";
-import Search from "src/components/Search";
 import { useFetch } from "src/util/CustomHook";
 import UserLayout from "../components/Layout/UserLayout";
 const Home = () => {
@@ -21,11 +20,6 @@ const Home = () => {
           <Carousel />
         </div>
       </div>
-      <div className="card mb-3">
-        <div className="card-body">
-          <Search/>
-        </div>
-      </div>
       <div className="card">
         <div className="card-body">
           <h3 className="card-title text-danger">Khuyến mãi HOT</h3>
@@ -42,7 +36,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-
     </UserLayout>
   );
 }

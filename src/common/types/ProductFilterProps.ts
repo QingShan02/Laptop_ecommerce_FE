@@ -1,7 +1,7 @@
 export interface ProductFilter {
-    ram: string,
-    rom: string,
-    brandid: string,
-    os: string,
-    display: string
+    ram: string | null,
+    rom: string | null,
+    brandid: string | null,
+    os: string | null,
+    display: string | null
 }
