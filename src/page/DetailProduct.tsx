@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Product } from 'src/common/model/Product';
 import UserLayout from 'src/components/Layout/UserLayout';
 import { useFetch, useQuery } from 'src/util/CustomHook';
 import { formatter } from 'src/util/formatCurrency';
