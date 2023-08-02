@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { redirect } from 'react-router-dom';
 import { Product } from 'src/common/model/Product';
 import UserLayout from 'src/components/Layout/UserLayout';
 import { useFetch, useQuery } from 'src/util/CustomHook';
@@ -19,8 +20,13 @@ const DetailProduct = () => {
         init();
     }, []);
 
-    const submit = (data: any) => {
-        console.log(data)
+    const submit = async(data: any) => {
+        data = {...data,userId:1};
+        const{data:result} =await useFetch.post("/api/cart/save",data);
+        console.log(result)
+        if(result ==0){
+            window.location.href = "/cart";
+        }
     }
 
     const handleIncrement = () => {
@@ -81,33 +87,8 @@ const DetailProduct = () => {
                                 <p className="mb-4">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit
                                     clita ea. Sanc ipsum et, labore clita lorem magna duo dolor no sea
                                     Nonumy</p>
-                                <div className="d-flex mb-3">
-                                    <strong className="text-dark mr-3">Ram:</strong>
-                                    <form>
-                                        <div className="mx-2 d-inline">
-                                            <input type="radio" {...register("ram")} value={"2GB"} className="custom-control-input" id="size-1" name="ram" />
-                                            <label className="custom-control-label" htmlFor="size-1">2GB</label>
-                                        </div>
-                                        <div className="mx-2 d-inline">
-                                            <input type="radio" {...register("ram")} value={"3GB"} className="custom-control-input" id="size-2" name="ram" />
-                                            <label className="custom-control-label" htmlFor="size-2">3GB</label>
-                                        </div>
-                                        <div className="mx-2 d-inline">
-                                            <input type="radio" {...register("ram")} value={"4GB"} className="custom-control-input" id="size-3" name="ram" />
-                                            <label className="custom-control-label" htmlFor="size-3">4GB</label>
-                                        </div>
-                                        <div className="mx-2 d-inline">
-                                            <input type="radio" {...register("ram")} value={"6GB"} className="custom-control-input" id="size-4" name="ram" />
-                                            <label className="custom-control-label" htmlFor="size-4">6GB</label>
-                                        </div>
-                                        <div className="mx-2 d-inline">
-                                            <input type="radio" {...register("ram")} value={"8GB"} className="custom-control-input" id="size-5" name="ram" />
-                                            <label className="custom-control-label" htmlFor="size-5">8GB</label>
-                                        </div>
-                                    </form>
-                                </div>
                                 <form className="d-flex align-items-center mb-4 pt-2" onSubmit={handleSubmit(submit)}>
-                                    <input type="hidden" {...register("product_id")} name='product_id' value={query.get("id") || ""} />
+                                    <input type="hidden" {...register("productId")} name='productId' value={query.get("id") || ""} />
                                     <div className="input-group quantity" style={{ width: 130 }}>
                                         <button type='button' className="btn btn-warning rounded-0 btn-minus input-group-text" onClick={handleDecrement}>
                                             <i className="bi bi-dash" />
