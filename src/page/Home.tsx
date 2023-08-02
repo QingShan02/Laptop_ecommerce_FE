@@ -5,6 +5,7 @@ import Carousel from "src/components/Carousel";
 import Search from "src/components/Search";
 import { useFetch } from "src/util/CustomHook";
 import UserLayout from "../components/Layout/UserLayout";
+import SlideMenu from "../components/Admin/SlideMenu";
 const Home = () => {
   const [data, setData] = useState<Product[]>();
   useEffect(() => {
@@ -40,7 +41,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-
     </UserLayout>
     
   );
