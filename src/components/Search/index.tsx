@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Brand } from "src/common/model/Brand";
@@ -15,10 +16,10 @@ interface Data {
 
 const Search = () => {
     // INIT
-    const ram = [{ id: "1", value: "4GB" }, { id: "2", value: "8GB" }, { id: "3", value: "16GB" }, { id: "4", value: "32GB" }, { id: "5", value: "64GB" }]
-    const rom = [{ id: "1", value: "4GB" }, { id: "2", value: "8GB" }, { id: "3", value: "16GB" }, { id: "4", value: "32GB" }, { id: "5", value: "64GB" }]
-    const display = [{ id: "1", value: "13.3 inch" }, { id: "2", value: "14 inch" }, { id: "3", value: "15.6 inch" }]
-    const os = [{ id: "1", value: "window 11" }, { id: "2", value: "macOS Big Sur" }]
+    const ram = ["4GB", "8GB", "16GB", "32GB", "64GB"]
+    const rom = ["256GB", "512GB", "1TB", "2TB"]
+    const display = ["13.3 inch", "14 inch", "15.6 inch"]
+    const os = ["window 11", "macOS Big Sur"]
     // useState
     const [products, setProducts] = useState<Product[]>();
     const [data, setData] = useState<Data>({ brands: [], products: [] });
@@ -30,6 +31,12 @@ const Search = () => {
     }, []);
     // SUBMIT FORM
     const onSubmit: SubmitHandler<ProductFilter> = (data) => {
+        if (data.brandid === "") data.brandid = null;
+        if (data.display === "") data.display = null;
+        if (data.os === "") data.os = null;
+        if (data.ram === "") data.ram = null;
+        if (data.rom === "") data.rom = null;
+
         async function init() {
             const { data: result } = await useFetch.post("/api/products/filter", data);
             setProducts(result);
@@ -43,51 +50,51 @@ const Search = () => {
                 <form action="" onSubmit={handleSubmit(onSubmit)}>
                     <div className="row w-75 m-auto">
                         <div className="col">
-                            <SelectInput id='brand' name="brand" key="brand" className="form-select" register={register("brandid")} options={
-                                data?.brands.map((value) => (
+                            <SelectInput id='brand' defaultValue={""} name="brand" className="form-select" register={register("brandid")} options={
+                                data?.brands.map((value, key) => (
                                     {
-                                        value: value.id + "",
+                                        value: key + 1,
                                         label: value.name
                                     }
                                 ))
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput id='ram' name="ram" key="ram" className="form-select" register={register("ram")} options={
+                            <SelectInput id='ram' defaultValue={""} name="ram" className="form-select" register={register("ram")} options={
                                 ram.map((value) => (
                                     {
-                                        value: value.value,
-                                        label: value.value
+                                        value: value,
+                                        label: value
                                     }
                                 ))
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput id='rom' name="rom" key="rom" className="form-select" register={register("rom")} options={
+                            <SelectInput id='rom' defaultValue={""} name="rom" className="form-select" register={register("rom")} options={
                                 rom.map((value) => (
                                     {
-                                        value: value.value,
-                                        label: value.value
+                                        value: value,
+                                        label: value
                                     }
                                 ))
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput id='display' name="display" key="display" className="form-select" register={register("display")} options={
+                            <SelectInput id='display' defaultValue={""} name="display" className="form-select" register={register("display")} options={
                                 display.map((value) => (
                                     {
-                                        value: value.value,
-                                        label: value.value
+                                        value: value,
+                                        label: value
                                     }
                                 ))
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput id='os' name="os" key="os" className="form-select" register={register("os")} options={
+                            <SelectInput id='os' defaultValue={""} name="os" className="form-select" register={register("os")} options={
                                 os.map((value) => (
                                     {
-                                        value: value.value,
-                                        label: value.value
+                                        value: value,
+                                        label: value
                                     }
                                 ))
                             } />
@@ -99,8 +106,8 @@ const Search = () => {
                     </div>
                 </form>
                 <div className="row w-100">{products?.map((value, key) => (
-                    <div className="col-4">
-                        <Card id={value.id} key={key} className="mt-3" data={value} />
+                    <div key={key} className="col-4">
+                        <Card id={value.id} className="mt-3" data={value} />
                     </div>
                 ))}</div>
             </div>

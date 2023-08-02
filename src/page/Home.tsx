@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Product } from "src/common/model/Product";
 import Card from "src/components/Card";
 import Carousel from "src/components/Carousel";
-import Search from "src/components/Search";
 import { useFetch } from "src/util/CustomHook";
 import UserLayout from "../components/Layout/UserLayout";
 import SlideMenu from "../components/Admin/SlideMenu";
@@ -22,19 +21,16 @@ const Home = () => {
           <Carousel />
         </div>
       </div>
-      <div className="card mb-3">
-        <div className="card-body">
-          <Search />
-        </div>
-      </div>
       <div className="card">
         <div className="card-body">
           <h3 className="card-title text-danger">Khuyến mãi HOT</h3>
-          <div className="row w-100 m-0">
+          <div className="row w-100 m-auto p-3">
             {
               data?.map((s, key) => {
                 return (
-                  <Card id={s.id} key={key} className="col-4" data={s} />
+                  <div key={key} className="col-4">
+                    <Card id={s.id} className="mt-3" data={s} />
+                  </div>
                 )
               })
             }
