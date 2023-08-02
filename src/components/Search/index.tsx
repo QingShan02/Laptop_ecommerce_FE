@@ -17,7 +17,7 @@ interface Data {
 const Search = () => {
     // INIT
     const ram = ["4GB", "8GB", "16GB", "32GB", "64GB"]
-    const rom = ["4GB", "8GB", "16GB", "32GB", "64GB"]
+    const rom = ["256GB", "512GB", "1TB", "2TB"]
     const display = ["13.3 inch", "14 inch", "15.6 inch"]
     const os = ["window 11", "macOS Big Sur"]
     // useState
@@ -30,7 +30,13 @@ const Search = () => {
         findBy_Brands_Products().then((result) => { setData(result); setProducts(result.products) }).catch(error => console.log(error));
     }, []);
     // SUBMIT FORM
-    const onSubmit: SubmitHandler<ProductFilter> = (form) => {
+    const onSubmit: SubmitHandler<ProductFilter> = (data) => {
+        if (data.brandid === "") data.brandid = null;
+        if (data.display === "") data.display = null;
+        if (data.os === "") data.os = null;
+        if (data.ram === "") data.ram = null;
+        if (data.rom === "") data.rom = null;
+
         async function init() {
             const { data: result } = await useFetch.post("/api/products/filter", data);
             setProducts(result);
@@ -38,42 +44,23 @@ const Search = () => {
         init();
     }
 
-    // const handleOnchange = (ev: any) => {
-    //     const name = ev.target.name;
-    //     const value = ev.target.value;
-    //     if (name == 'brandid' && value != 0) {
-    //         setData("brandid", [value])
-    //     }
-    //     if (name == 'ram' && value != 0) {
-    //         setData("ram", [value])
-    //     }
-    //     if (name == 'rom' && value != 0) {
-    //         setData("rom", [value])
-    //     }
-    //     if (name == 'os' && value != 0) {
-    //         setData("os", [value])
-    //     }
-    //     if (name == 'display' && value != 0) {
-    //         setData("display", [value])
-    //     }
-    // }
     return (
         <div className="p-3 m-auto bg-white text-dark font-monospace" >
             <div className="container">
                 <form action="" onSubmit={handleSubmit(onSubmit)}>
                     <div className="row w-75 m-auto">
                         <div className="col">
-                            <SelectInput id='brand' defaultValue={0} name="brand" className="form-select" register={register("brandid")} options={
+                            <SelectInput id='brand' defaultValue={""} name="brand" className="form-select" register={register("brandid")} options={
                                 data?.brands.map((value, key) => (
                                     {
-                                        value: key + 1 + "",
+                                        value: key + 1,
                                         label: value.name
                                     }
                                 ))
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput id='ram' defaultValue={"0"} name="ram" className="form-select" register={register("ram")} options={
+                            <SelectInput id='ram' defaultValue={""} name="ram" className="form-select" register={register("ram")} options={
                                 ram.map((value) => (
                                     {
                                         value: value,
@@ -83,7 +70,7 @@ const Search = () => {
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput id='rom' defaultValue={"0"} name="rom" className="form-select" register={register("rom")} options={
+                            <SelectInput id='rom' defaultValue={""} name="rom" className="form-select" register={register("rom")} options={
                                 rom.map((value) => (
                                     {
                                         value: value,
@@ -93,7 +80,7 @@ const Search = () => {
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput id='display' defaultValue={"0"} name="display" className="form-select" register={register("display")} options={
+                            <SelectInput id='display' defaultValue={""} name="display" className="form-select" register={register("display")} options={
                                 display.map((value) => (
                                     {
                                         value: value,
@@ -103,10 +90,9 @@ const Search = () => {
                             } />
                         </div>
                         <div className="col">
-                            <SelectInput id='os' defaultValue={"0"} name="os" className="form-select" register={register("os")} options={
-                                os.map((value, key) => (
+                            <SelectInput id='os' defaultValue={""} name="os" className="form-select" register={register("os")} options={
+                                os.map((value) => (
                                     {
-                                        key: key,
                                         value: value,
                                         label: value
                                     }
@@ -114,7 +100,7 @@ const Search = () => {
                             } />
                         </div>
                         <div className="col-1">
-                            <button type="submit" defaultValue={"0"} className="btn btn-default"><i className="bi bi-search"></i>
+                            <button type="submit" className="btn btn-default"><i className="bi bi-search"></i>
                             </button>
                         </div>
                     </div>
