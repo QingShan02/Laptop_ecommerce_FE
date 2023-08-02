@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {RouterProvider} from "react-router-dom";
-import { router } from './router';
+import { router } from './Router';
 
 
 function App() {
