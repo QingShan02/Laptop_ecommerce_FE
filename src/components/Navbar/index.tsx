@@ -1,20 +1,19 @@
 import React, { useEffect } from 'react';
 import "./index.css";
 import { Link } from 'react-router-dom';
-import {useCookies} from "react-cookie"
+import { useCookies } from "react-cookie"
 const Navbar = () => {
-    const [cookie,setCookie] = useCookies(['user']);
+    const [cookie, setCookie] = useCookies(['user']);
 
-
-    useEffect(()=>{
-        if(window.location.pathname.includes("cart")){
+    useEffect(() => {
+        if (window.location.pathname.includes("cart")) {
             checkLogin();
         }
-    },[]); 
+    }, []);
 
-    const checkLogin = () =>{
-        if(cookie.user == null || cookie.user ==undefined){
-            window.location.href="/login";
+    const checkLogin = () => {
+        if (cookie.user == null || cookie.user == undefined) {
+            window.location.href = "/login";
         }
     }
 
@@ -122,10 +121,10 @@ const Navbar = () => {
                                                     </ul>
                                                     <ul className="navbar-nav ms-auto ">
                                                         <li className="nav-item">
-                                                            <Link className="nav-link mx-2 text-uppercase fw-bolder" onClick={checkLogin} to="/cart"><i className="fa-solid fa-cart-shopping me-1" /><i className='bi bi-cart me-1'></i> Cart</Link>
+                                                            <Link className="nav-link mx-2 text-uppercase fw-bolder" onClick={checkLogin} to="/cart"><i className="fa-solid fa-cart-shopping me-1" /><i className='bi bi-cart me-1'></i>Giỏ hàng</Link>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <Link className="nav-link mx-2 text-uppercase fw-bolder" to={"/login"}><i className="fa-solid fa-circle-user me-1" /><i className='bi bi-person me-1'></i> {cookie.user?.fullname || 'Login'}</Link>
+                                                            <Link className="nav-link mx-2 text-uppercase fw-bolder" to={cookie.user==null || cookie.user == undefined ? "/login":"/my-account"}><i className="fa-solid fa-circle-user me-1" /><i className='bi bi-person me-1'></i> {cookie.user?.fullname || 'Đăng nhập'}</Link>
                                                         </li>
                                                     </ul>
                                                 </div>
