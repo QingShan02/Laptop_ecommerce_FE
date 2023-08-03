@@ -1,6 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./index.css";
+import { Link } from 'react-router-dom';
+import {useCookies} from "react-cookie"
 const Navbar = () => {
+    const [cookie,setCookie] = useCookies(['user']);
+
+
+    useEffect(()=>{
+        if(window.location.pathname.includes("cart")){
+            checkLogin();
+        }
+    },[]); 
+
+    const checkLogin = () =>{
+        if(Object.keys(cookie.user).length == 0){
+            window.location.href="/login";
+            console.log("cookie");
+        }
+    }
+
     return (
         <div className='navAll'>
             {/* header */}
@@ -74,7 +92,7 @@ const Navbar = () => {
                                     <div className='nav1'>
                                         <nav className="navbar navbar-expand-lg bg-white  navbar-light p-3 shadow">
                                             <div className="container">
-                                                <a className="navbar-brand" href="#"><i className="fa-solid fa-shop me-2" /> <strong>Zu Hot</strong></a>
+                                                <Link className="navbar-brand" to="/"><i className="fa-solid fa-shop me-2" /> <strong>Zu Hot</strong></Link>
                                                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                                                     <span className="navbar-toggler-icon" />
                                                 </button>
@@ -105,10 +123,10 @@ const Navbar = () => {
                                                     </ul>
                                                     <ul className="navbar-nav ms-auto ">
                                                         <li className="nav-item">
-                                                            <a className="nav-link mx-2 text-uppercase fw-bolder" href="#"><i className="fa-solid fa-cart-shopping me-1" /><i className='bi bi-cart me-1'></i> Cart</a>
+                                                            <Link className="nav-link mx-2 text-uppercase fw-bolder" onClick={checkLogin} to="/cart"><i className="fa-solid fa-cart-shopping me-1" /><i className='bi bi-cart me-1'></i> Cart</Link>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link mx-2 text-uppercase fw-bolder" href="#"><i className="fa-solid fa-circle-user me-1" /><i className='bi bi-person me-1'></i> Account</a>
+                                                            <a className="nav-link mx-2 text-uppercase fw-bolder" href="#"><i className="fa-solid fa-circle-user me-1" /><i className='bi bi-person me-1'></i> {cookie.user.fullname || 'Account'}</a>
                                                         </li>
                                                     </ul>
                                                 </div>

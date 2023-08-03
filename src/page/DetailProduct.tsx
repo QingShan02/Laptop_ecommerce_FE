@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { redirect } from 'react-router-dom';
 import { Product } from 'src/common/model/Product';
@@ -7,6 +8,7 @@ import { useFetch, useQuery } from 'src/util/CustomHook';
 import { formatter } from 'src/util/formatCurrency';
 const DetailProduct = () => {
     const [quantity, setQuantity] = useState(1);
+    const [cookie] = useCookies(['user']);
     const [data, setData] = useState<Product>();
     const query = useQuery();
 
@@ -21,7 +23,7 @@ const DetailProduct = () => {
     }, []);
 
     const submit = async(data: any) => {
-        data = {...data,userId:1};
+        data = {...data,userId:cookie.user.id};
         const{data:result} =await useFetch.post("/api/cart/save",data);
         console.log(result)
         if(result ==0){
