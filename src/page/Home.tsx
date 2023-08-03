@@ -37,6 +37,7 @@ const Home = () => {
         </div>
       </div>
     </UserLayout>
+    
   );
 }
 export default Home;
