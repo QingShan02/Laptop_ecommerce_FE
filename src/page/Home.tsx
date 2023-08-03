@@ -4,7 +4,6 @@ import Card from "src/components/Card";
 import Carousel from "src/components/Carousel";
 import { useFetch } from "src/util/CustomHook";
 import UserLayout from "../components/Layout/UserLayout";
-import SlideMenu from "../components/Admin/SlideMenu";
 const Home = () => {
   const [data, setData] = useState<Product[]>();
   useEffect(() => {

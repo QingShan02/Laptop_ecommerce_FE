@@ -1,54 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'webix';
 import * as webix from 'webix';
 import 'webix/webix.css'; // Import Webix CSS
 // Đảm bảo bạn đã cài đặt thư viện 'webix'
 
-const MyComponent: React.FC = () => {
+const SlideMenu: React.FC = () => {
     useEffect(() => {
         webix.ready(() => {
             const menu_data: any = [{
-                id: "dashboard", icon: "mdi mdi-view-dashboard", value: "Dashboards", data: [
-                    { id: "dashboard1", value: "Dashboard 1" },
-                    { id: "dashboard2", value: "Dashboard 2" }
-                ]
+                id: "qlsp", icon: "mdi mdi-view-dashboard", value: "Quản lý sản phẩm"
             },
             {
-                id: "layouts", icon: "mdi mdi-view-column", value: "Layouts", data: [
-                    { id: "accordions", value: "Accordions" },
-                    { id: "portlets", value: "Portlets" }
-                ]
+                id: "qldh", icon: "mdi mdi-view-column", value: "Quản lý đơn hàng"
             },
             {
-                id: "tables", icon: "mdi mdi-table", value: "Data Tables", data: [
-                    { id: "tables1", value: "Datatable" },
-                    { id: "tables2", value: "TreeTable" },
-                    { id: "tables3", value: "Pivot" }
-                ]
+                id: "qlnd", icon: "mdi mdi-table", value: "Quản lý người dùng"
             },
             {
-                id: "uis", icon: "mdi mdi-puzzle", value: "UI Components", data: [
-                    { id: "dataview", value: "DataView" },
-                    { id: "list", value: "List" },
-                    { id: "menu", value: "Menu" },
-                    { id: "tree", value: "Tree" }
-                ]
-            },
-            {
-                id: "tools", icon: "mdi mdi-calendar", value: "Tools", data: [
-                    { id: "kanban", value: "Kanban Board" },
-                    { id: "pivot", value: "Pivot Chart" },
-                    { id: "scheduler", value: "Calendar" }
-                ]
-            },
-            {
-                id: "forms", icon: "mdi mdi-pencil", value: "Forms", data: [
-                    { id: "buttons", value: "Buttons" },
-                    { id: "selects", value: "Select boxes" },
-                    { id: "inputs", value: "Inputs" }
-                ]
-            },
-            { id: "demo", icon: "mdi mdi-book", value: "Documentation" }];
+                id: "tk", icon: "mdi mdi-puzzle", value: "Thống kê"
+            }];
 
             webix.ui({
                 rows: [
@@ -63,7 +33,7 @@ const MyComponent: React.FC = () => {
                                     (webix.$$('sidebar1') as any).toggle(); // TypeScript cần ép kiểu ở đây
                                 },
                             },
-                            { view: 'label', label: 'My App' },
+                            { view: 'label', label: 'Admin' },
                             {},
                             { view: 'icon', icon: 'mdi mdi-comment', badge: 4 },
                             { view: 'icon', icon: 'mdi mdi-bell', badge: 10 },
@@ -76,8 +46,12 @@ const MyComponent: React.FC = () => {
                                 data: menu_data,
                                 on: {
                                     onAfterSelect: (id: any) => {
-                                        webix.message('Selected: ' + (webix.$$('sidebar') as any).getItem(id).value);
+                                        const selectedText1 = id;
+                                        const data = menu_data.find((item: any) => item.id === id)
+                                        webix.message('Selected: ' + selectedText1);
+                                        console.log(data)
                                     },
+
                                 },
                             },
                             { template: '' },
@@ -91,4 +65,4 @@ const MyComponent: React.FC = () => {
     return <div id="webix-container" />; // Đảm bảo bạn có một container để render Webix UI
 };
 
-export default MyComponent;
+export default SlideMenu;
