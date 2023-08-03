@@ -83,7 +83,7 @@ const CartPage = () => {
     return a+b;
   }
   console.log(data);
-  const total = data?.map((s:any)=>s.quantity*s.product.price).reduce(sum);
+  const total = data?.length==0 ?  0:data?.map((s:any)=>s.quantity*s.product.price).reduce(sum);
   return (
     <UserLayout>
       <div className="container">

@@ -13,9 +13,8 @@ const Navbar = () => {
     },[]); 
 
     const checkLogin = () =>{
-        if(Object.keys(cookie.user).length == 0){
+        if(cookie.user == null || cookie.user ==undefined){
             window.location.href="/login";
-            console.log("cookie");
         }
     }
 
@@ -126,7 +125,7 @@ const Navbar = () => {
                                                             <Link className="nav-link mx-2 text-uppercase fw-bolder" onClick={checkLogin} to="/cart"><i className="fa-solid fa-cart-shopping me-1" /><i className='bi bi-cart me-1'></i> Cart</Link>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link mx-2 text-uppercase fw-bolder" href="#"><i className="fa-solid fa-circle-user me-1" /><i className='bi bi-person me-1'></i> {cookie.user.fullname || 'Account'}</a>
+                                                            <Link className="nav-link mx-2 text-uppercase fw-bolder" to={"/login"}><i className="fa-solid fa-circle-user me-1" /><i className='bi bi-person me-1'></i> {cookie.user?.fullname || 'Login'}</Link>
                                                         </li>
                                                     </ul>
                                                 </div>
