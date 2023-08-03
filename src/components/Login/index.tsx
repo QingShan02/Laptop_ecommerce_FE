@@ -2,15 +2,18 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useFetch } from "src/util/CustomHook";
 import Input from "../Input";
 import { LoginProps } from "src/common/types/LoginProps";
+import { useCookies } from "react-cookie";
 
 const Login = () => {
+    const [cookie,setCookie] = useCookies(['user']);
     const { register, handleSubmit, formState: { errors } } = useForm<LoginProps>();
     const onSubmit: SubmitHandler<LoginProps> = (data) => {
         async function init() {
             await useFetch.post("/api/auth/login", data).then(result => {
-                if (data.remember) {
-                    document.cookie = `user=${JSON.stringify(result.data)}`
-                }
+                // if (data.remember) {
+                //     document.cookie = `user=${JSON.stringify(result.data)}`
+                // }
+                setCookie("user",JSON.stringify(result.data));
                 window.location.href = "http://localhost:3000/"
             }).catch(errors => alert(errors.response.data.message))
         }
