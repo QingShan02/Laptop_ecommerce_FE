@@ -13,7 +13,7 @@ const MyAccount = () => {
     const [data,setData] = useState<any>();
     const [user, setUser] = useState<any>();
     const init = async() =>{
-        const {data:result} = await useFetch.get("/api/order",{params:{userId:1}});
+        const {data:result} = await useFetch.get("/api/order",{params:{userId:cookie.user.id}});
         setData(result);
     }
     useEffect(() => {

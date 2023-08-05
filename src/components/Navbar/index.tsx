@@ -3,20 +3,22 @@ import "./index.css";
 import { Link } from 'react-router-dom';
 import { useCookies } from "react-cookie"
 const Navbar = () => {
-    const [cookie, setCookie] = useCookies(['user']);
+    const [cookie, setCookie, removeCookie] = useCookies(['user']);
 
     useEffect(() => {
         if (window.location.pathname.includes("cart")) {
             checkLogin();
         }
-    }, []);
+    }, [cookie]);
 
     const checkLogin = () => {
         if (cookie.user == null || cookie.user == undefined) {
             window.location.href = "/login";
         }
     }
-
+    const logout = () => {
+        removeCookie("user");
+    }
     return (
         <div className='navAll'>
             {/* header */}
@@ -110,12 +112,6 @@ const Navbar = () => {
                                                             <a className="nav-link mx-2 text-uppercase fw-bolder" href="#">Products</a>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link mx-2 text-uppercase fw-bolder" href="#">Catalog</a>
-                                                        </li>
-                                                        <li className="nav-item">
-                                                            <a className="nav-link mx-2 text-uppercase fw-bolder" href="#">Services</a>
-                                                        </li>
-                                                        <li className="nav-item">
                                                             <a className="nav-link mx-2 text-uppercase fw-bolder" href="#">About</a>
                                                         </li>
                                                     </ul>
@@ -124,7 +120,10 @@ const Navbar = () => {
                                                             <Link className="nav-link mx-2 text-uppercase fw-bolder" onClick={checkLogin} to="/cart"><i className="fa-solid fa-cart-shopping me-1" /><i className='bi bi-cart me-1'></i>Giỏ hàng</Link>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <Link className="nav-link mx-2 text-uppercase fw-bolder" to={cookie.user==null || cookie.user == undefined ? "/login":"/my-account"}><i className="fa-solid fa-circle-user me-1" /><i className='bi bi-person me-1'></i> {cookie.user?.fullname || 'Đăng nhập'}</Link>
+                                                            <Link className="nav-link mx-2 text-uppercase fw-bolder" to={cookie.user == null || cookie.user == undefined ? "/login" : "/my-account"}><i className="fa-solid fa-circle-user me-1" /><i className='bi bi-person me-1'></i> {cookie.user?.fullname || 'Đăng nhập'}</Link>
+                                                        </li>
+                                                        <li className={`nav-item ${cookie.user == null || cookie.user == undefined ? 'd-none':'d-block'}`}>
+                                                            <button onClick={logout} className='nav-link mx-2 text-uppercase fw-bolder'>Đăng xuất</button>
                                                         </li>
                                                     </ul>
                                                 </div>
