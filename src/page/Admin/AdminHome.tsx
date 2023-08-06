@@ -15,9 +15,8 @@ const AdminHome = () => {
   // }, []);
   return (
     <AdminLayout>
-
+      <Carousel></Carousel>
     </AdminLayout>
-    
   );
 }
 export default AdminHome;
