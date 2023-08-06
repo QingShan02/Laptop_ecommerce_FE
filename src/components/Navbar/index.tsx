@@ -109,7 +109,7 @@ const Navbar = () => {
                                                             <a className="nav-link mx-2 text-uppercase fw-bolder" aria-current="page" href="#">Offers</a>
                                                         </li>
                                                         <li className="nav-item">
-                                                            <a className="nav-link mx-2 text-uppercase fw-bolder" href="#">Products</a>
+                                                            <a className="nav-link mx-2 text-uppercase fw-bolder" href="/search">Products</a>
                                                         </li>
                                                         <li className="nav-item">
                                                             <a className="nav-link mx-2 text-uppercase fw-bolder" href="#">About</a>
@@ -122,7 +122,7 @@ const Navbar = () => {
                                                         <li className="nav-item">
                                                             <Link className="nav-link mx-2 text-uppercase fw-bolder" to={cookie.user == null || cookie.user == undefined ? "/login" : "/my-account"}><i className="fa-solid fa-circle-user me-1" /><i className='bi bi-person me-1'></i> {cookie.user?.fullname || 'Đăng nhập'}</Link>
                                                         </li>
-                                                        <li className={`nav-item ${cookie.user == null || cookie.user == undefined ? 'd-none':'d-block'}`}>
+                                                        <li className={`nav-item ${cookie.user == null || cookie.user == undefined ? 'd-none' : 'd-block'}`}>
                                                             <button onClick={logout} className='nav-link mx-2 text-uppercase fw-bolder'>Đăng xuất</button>
                                                         </li>
                                                     </ul>

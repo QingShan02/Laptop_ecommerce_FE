@@ -1,6 +1,6 @@
+import { CartDetailProps } from "src/common/types/CartDetailProps";
 import Footer from "src/components/Footer";
 import Navbar from "src/components/Navbar";
-import { CartDetailProps } from './../comman/model/CartDetailProps';
 
 const Cart = ({ ...props }: CartDetailProps) => {
     return (
