@@ -8,6 +8,8 @@ import Card from "../Card";
 import SelectInput from "../Select";
 import { findBy_Brands_Products } from "src/api/SearchPage/route";
 import { Product } from "src/common/model/Product";
+import { Link } from "react-router-dom";
+import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
 
 interface Data {
     brands: Brand[],
@@ -23,12 +25,16 @@ const Search = () => {
     // useState
     const [products, setProducts] = useState<Product[]>();
     const [data, setData] = useState<Data>({ brands: [], products: [] });
+    const [page, setPage] = useState(0);
     // useForm
     const { register, handleSubmit } = useForm<ProductFilter>();
     // LOADING
     useEffect(() => {
-        findBy_Brands_Products().then((result) => { setData(result); setProducts(result.products) }).catch(error => console.log(error));
-    }, []);
+        findBy_Brands_Products(page).then((result) => {
+            setData(result);
+            setProducts(result.products.content)
+        }).catch(error => console.log(error));
+    }, [page]);
     // SUBMIT FORM
     const onSubmit: SubmitHandler<ProductFilter> = (data) => {
         if (data.brandid === "") data.brandid = null;
@@ -110,6 +116,10 @@ const Search = () => {
                         <Card id={value.id} className="mt-3" data={value} />
                     </div>
                 ))}</div>
+                <div className="mb-3 d-flex justify-content-end">
+                    <Link to={""} onClick={() => setPage((e) => e - 1)} className="btn me-3"><BsArrowLeftCircle /></Link>
+                    <Link to={""} onClick={() => setPage((e) => e + 1)} className="btn"><BsArrowRightCircle /></Link>
+                </div>
             </div>
         </div >
     );
