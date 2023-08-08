@@ -24,6 +24,11 @@ const SideMenu = () => {
                             Customers
                         </a>
                     </li>
+                    <li>
+                        <a href="#4" className="nav-link link-success shadow-sm mb-3 bg-body rounded">
+                            Brands
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
