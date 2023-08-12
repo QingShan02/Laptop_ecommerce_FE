@@ -3,8 +3,8 @@ import { delete_Brands, findAll_Brands } from "src/api/Brands/route";
 import { Brand } from "src/common/model/Brand";
 import AdminLayout from "src/components/Layout/AdminLayout";
 import { useQuery } from "src/util/CustomHook";
-import BrandDetail from "./brands/BrandDetail";
-import Brands from "./brands/Brands";
+import BrandDetail from "./Brands/BrandDetail";
+import Brands from "./Brands/BrandTable";
 const AdminHome = () => {
   // const [data, setData] = useState<Product[]>();
   // useEffect(() => {

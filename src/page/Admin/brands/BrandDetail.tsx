@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { findById_Brands } from "src/api/Brands/route";
 import { Brand } from "src/common/model/Brand";
 import Input from "src/components/Input";
+import { useFetch } from "src/util/CustomHook";
 type Props = {
     id: string | null
 }
@@ -17,12 +18,11 @@ const BrandDetail = ({ ...props }: Props) => {
     const { register, handleSubmit } = useForm<Brand>();
     const onSubmit: SubmitHandler<Brand> = (data) => {
         console.log(data);
-
-        // async function init() {
-        //     const { data: result } = await useFetch.post("/api/brand/save", data);
-        //     setBrand(result);
-        // }
-        // init();
+        async function init() {
+            const { status: result } = await useFetch.post("/api/brand/save", data);
+            result === 200 ? alert("Thêm mới thành công !!") : alert("Lỗi !")
+        }
+        init();
     }
     return (
         <div className="row mt-3">
