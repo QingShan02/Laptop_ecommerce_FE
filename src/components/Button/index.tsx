@@ -1,12 +1,12 @@
 import "./index.css";
 
-interface ButtonProps{
+interface ButtonProps {
     className: string,
-    children:any
+    children: any
 }
 
-const Button = ({className,children}:ButtonProps) =>{
-    return(
+const Button = ({ className, children }: ButtonProps) => {
+    return (
         <button className={className}>{children}</button>
     );
 }
