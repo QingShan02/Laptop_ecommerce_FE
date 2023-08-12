@@ -11,13 +11,13 @@ export async function findById_Brands(id: string | null) {
 }
 export async function save_Brands(data: Brand) {
     const brands = await useFetch.post(hostURL + "save", data);
-    return brands.data;
+    return brands.status;
 }
 export async function delete_Brands(id: string | null) {
     const brands = await useFetch.delete(hostURL + id);
-    return brands.data;
+    return brands.status;
 }
 export async function update_Brands(id: string | null, data: Brand) {
     const brands = await useFetch.put(hostURL + id, data);
-    return brands.data;
+    return brands.status;
 }

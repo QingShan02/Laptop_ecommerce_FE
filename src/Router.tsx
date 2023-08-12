@@ -1,13 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "./page/Home";
-import DetailProduct from "./page/DetailProduct";
-import Login from "./page/Login";
-import CartPage from "./page/CartPage";
-import SearchPage from "./page/SearchPage";
-import AdminLayout from "./components/Layout/AdminLayout";
 import AdminHome from "./page/Admin/AdminHome";
+import BrandPage from "./page/Admin/Brands";
+import CartPage from "./page/CartPage";
+import DetailProduct from "./page/DetailProduct";
+import Home from "./page/Home";
+import Login from "./page/Login";
 import MyAccount from "./page/MyAccount";
-import Brands from "./page/Admin/Brands";
+import SearchPage from "./page/SearchPage";
 import Users from "./page/Admin/Users";
 
 export const router = createBrowserRouter([
@@ -42,6 +41,10 @@ export const router = createBrowserRouter([
   {
     path: "/my-account",
     element: <MyAccount />
+  },
+  {
+    path: "/admin/brands",
+    element: <BrandPage />
   },
   {
     path: "/admin/users",

@@ -7,8 +7,8 @@ type Props = {
     handleChange: () => void;
 }
 
-const UserTable = (props : Props) => {
-    const [user,setUser] = useState(props.list);
+const UserTable = (props: Props) => {
+    const { list } = props;
     return (
         <div className="row mt-3">
             <div className="table-responsive-md">
@@ -24,7 +24,7 @@ const UserTable = (props : Props) => {
                         <th></th>
                     </tr>
                     </tbody><tbody className="table-group-divider">
-                        {user?.map((value, key) => {
+                        {list?.map((value, key) => {
                             return (
                                 <tr className="table-default" key={key}>
                                     <td>{value.id}</td>
@@ -32,7 +32,7 @@ const UserTable = (props : Props) => {
                                     <td>{value.email}</td>
                                     <td>{value.password}</td>
                                     <td>{value.phone}</td>
-                                    <td>{value.admin  ? "Admin" : "Customer"}</td>
+                                    <td>{value.admin ? "Admin" : "Customer"}</td>
                                     <td><Link to={"/admin/users/?id=" + value.id} onClick={props.handleChange} className="text-decoration-none">Edit</Link></td>
                                 </tr>
                             )
