@@ -6,6 +6,8 @@ import CartPage from "./page/CartPage";
 import SearchPage from "./page/SearchPage";
 import AdminLayout from "./components/Layout/AdminLayout";
 import AdminHome from "./page/Admin/AdminHome";
+import MyAccount from "./page/MyAccount";
+import Brands from "./page/Admin/Brands";
 
 export const router = createBrowserRouter([
   {
@@ -29,11 +31,15 @@ export const router = createBrowserRouter([
     element: <div>About</div>,
   },
   {
-    path:"/cart",
-    element: <CartPage/>
+    path: "/cart",
+    element: <CartPage />
   },
   {
     path: "/admin",
     element: <AdminHome />
+  },
+  {
+    path: "/my-account",
+    element: <MyAccount />
   }
 ]);

@@ -25,7 +25,7 @@ const CartItem = ({object,handleChangeUp, handleDeleteItem}:{object:any,handleCh
           {/* Data */}
           <p><strong>{object.product.name}</strong></p>
           <p>Màu sắc: {object.product.color.name}</p>
-          <button type="button" onClick={()=>{handleDeleteItem(object.id);}} className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item">
+          <button type="button" onClick={()=>{handleDeleteItem(object.cartId);}} className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item">
             <FaTrash />
           </button>
           <button type="button" className="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip" title="Move to the wish list">
@@ -63,7 +63,7 @@ const CartItem = ({object,handleChangeUp, handleDeleteItem}:{object:any,handleCh
 
 const CartPage = () => {
   const [cookie, setCookie] = useCookies(['user']);
-  const [data, setData] = useState<Object[]>();
+  const [data, setData] = useState<any>();
   const init = async () => {
     const { data: result } = await useFetch.get("/api/cart", { params: { userId: cookie.user.id } });
     setData(result);
@@ -81,6 +81,21 @@ const CartPage = () => {
   }
   const sum = (a:any,b:any) =>{
     return a+b;
+  }
+  const saveOrder = async(e:any) =>{
+    e.preventDefault();
+    console.log(data);
+    const param = {
+      customerId: cookie.user.id,
+      place:"",
+      order_details:[
+        ...data
+      ]
+    }
+    const {data:result} = await useFetch.post("/api/order/save",param);
+    if(result == 1){
+      window.location.href="/my-account";
+    }
   }
   console.log(data);
   const total = data?.length==0 ?  0:data?.map((s:any)=>s.quantity*s.product.price).reduce(sum);
@@ -148,7 +163,7 @@ const CartPage = () => {
                         <span><strong>{formatter.format(total|| 0)}</strong></span>
                       </li>
                     </ul>
-                    <button type="button" className="btn btn-primary btn-lg btn-block">
+                    <button type="button" onClick={saveOrder} className="btn btn-primary btn-lg btn-block">
                       Đi tới thanh toán
                     </button>
                   </div>

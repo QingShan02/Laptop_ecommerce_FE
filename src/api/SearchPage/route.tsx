@@ -1,8 +1,8 @@
 import { useFetch } from "src/util/CustomHook";
 const hostURL = "http://localhost:8080/api/";
-export async function findBy_Brands_Products() {
-    const brands = await useFetch.get(hostURL + "brands");
-    const products = await useFetch.get(hostURL + "products");
+export async function findBy_Brands_Products(page: number) {
+    const brands = await useFetch.get(hostURL + "brand");
+    const products = await useFetch.get(hostURL + "products?p=" + page);
     const combined = {
         brands: brands.data,
         products: products.data
