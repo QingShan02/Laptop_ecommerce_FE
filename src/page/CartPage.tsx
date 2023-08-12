@@ -2,10 +2,8 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import UserLayout from "src/components/Layout/UserLayout";
 import { FaMinus, FaPlus, FaTrash, FaHeart } from "react-icons/fa"
-import { Product } from "src/common/model/Product";
 import { useFetch } from "src/util/CustomHook";
 import { formatter } from "src/util/formatCurrency";
-import $ from "jquery";
 
 const CartItem = ({object,handleChangeUp, handleDeleteItem}:{object:any,handleChangeUp:(value:any)=>void,handleDeleteItem: (id:any) =>void}) => {
   return (

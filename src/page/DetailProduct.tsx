@@ -23,12 +23,17 @@ const DetailProduct = () => {
     }, []);
 
     const submit = async(data: any) => {
-        data = {...data,userId:cookie.user.id};
-        const{data:result} =await useFetch.post("/api/cart/save",data);
-        console.log(result)
-        if(result ==0){
-            window.location.href = "/cart";
+        if(cookie.user){
+            data = {...data,userId:cookie.user.id};
+            const{data:result} =await useFetch.post("/api/cart/save",data);
+            console.log(result)
+            if(result ==0){
+                window.location.href = "/cart";
+            }
+        }else{
+            window.location.href = "/login";
         }
+
     }
 
     const handleIncrement = () => {
