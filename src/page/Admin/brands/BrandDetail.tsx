@@ -3,7 +3,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { findById_Brands } from "src/api/Brands/route";
 import { Brand } from "src/common/model/Brand";
 import Input from "src/components/Input";
-import { useFetch, useQuery } from "src/util/CustomHook";
 type Props = {
     id: string | null
 }
@@ -27,11 +26,11 @@ const BrandDetail = ({ ...props }: Props) => {
     }
     return (
         <div className="row mt-3">
-            <h3 className="text-center">Brand Settings</h3>
+            <h3 className="text-center">Thông tin thương hiệu</h3>
             <div className="p-0">
                 <div className="row py-3">
                     <div className="col-4">
-                        <p className="w-100 text-end">Name:</p>
+                        <p className="w-100 text-end">Tên thương hiệu:</p>
                         <p className="w-100 text-end pt-2">Logo:</p>
                     </div>
                     <div className="col-8">

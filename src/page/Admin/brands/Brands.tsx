@@ -11,11 +11,11 @@ const Brands = ({ ...props }: Props) => {
     return (
         <div className="row mt-3">
             <div className="table-responsive-md">
-                <h3>List Brands</h3>
+                <h3>Danh sách thương hiệu</h3>
                 <table className="table table-hover">
                     <tbody><tr className="table-primary">
                         <th>Id</th>
-                        <th>Name</th>
+                        <th>Tên thương hiệu</th>
                         <th>Logo</th>
                         <th></th>
                     </tr>
@@ -26,7 +26,7 @@ const Brands = ({ ...props }: Props) => {
                                     <td>{value.id}</td>
                                     <td>{value.name}</td>
                                     <td>{value.logo}</td>
-                                    <td><Link to={"/admin?id=" + value.id} onClick={props.handleChange} className="text-decoration-none">Edit</Link></td>
+                                    <td><Link to={"/admin/brands?id=" + value.id} onClick={props.handleChange} className="text-decoration-none">Sửa</Link></td>
                                 </tr>
                             )
                         })}
