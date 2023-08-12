@@ -8,6 +8,7 @@ import AdminLayout from "./components/Layout/AdminLayout";
 import AdminHome from "./page/Admin/AdminHome";
 import MyAccount from "./page/MyAccount";
 import Brands from "./page/Admin/Brands";
+import Users from "./page/Admin/Users";
 
 export const router = createBrowserRouter([
   {
@@ -41,5 +42,9 @@ export const router = createBrowserRouter([
   {
     path: "/my-account",
     element: <MyAccount />
+  },
+  {
+    path: "/admin/users",
+    element: <Users />
   }
 ]);

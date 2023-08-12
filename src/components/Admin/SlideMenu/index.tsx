@@ -21,7 +21,7 @@ const SideMenu = () => {
                     </li>
                     <li>
                         <a href="/admin/users" className="nav-link link-success shadow-sm mb-3 bg-body rounded">
-                            Customers
+                            Users
                         </a>
                     </li>
                     <li>
