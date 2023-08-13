@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import Navbar from "../Admin/Navbar";
-import SideMenu from "../Admin/Sidebar";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../Admin/Navbar";
+import SideMenu from "../Admin/Sidebar";
 
 const AdminLayout = ({ children }: any) => {
     const [cookie, setCookie] = useCookies(['admin']);

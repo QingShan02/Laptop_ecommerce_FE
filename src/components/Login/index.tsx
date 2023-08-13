@@ -5,7 +5,7 @@ import { LoginProps } from "src/common/types/LoginProps";
 import { useCookies } from "react-cookie";
 
 const Login = () => {
-    const [cookie,setCookie] = useCookies(['user']);
+    const [cookie, setCookie] = useCookies(['user']);
     const { register, handleSubmit, formState: { errors } } = useForm<LoginProps>();
     const onSubmit: SubmitHandler<LoginProps> = (data) => {
         async function init() {
@@ -13,7 +13,7 @@ const Login = () => {
                 // if (data.remember) {
                 //     document.cookie = `user=${JSON.stringify(result.data)}`
                 // }
-                setCookie("user",JSON.stringify(result.data));
+                setCookie("user", JSON.stringify(result.data));
                 window.location.href = "http://localhost:3000/"
             }).catch(errors => alert(errors.response.data.message))
         }

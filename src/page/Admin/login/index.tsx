@@ -1,13 +1,25 @@
 import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { LoginProps } from "src/common/types/LoginProps";
+import { useFetch } from "src/util/CustomHook";
 
 const LoginAdmin = () => {
     const [cookie, setCookie] = useCookies(['admin']);
     const { register, handleSubmit, formState: { errors } } = useForm<LoginProps>();
 
     const onSumit = (e: any) => {
-
+        async function init() {
+            await useFetch.post("/api/auth/login", e).then(result => {
+                if (result.data.admin) {
+                    setCookie("admin", JSON.stringify(result.data));
+                    window.location.href = "http://localhost:3000/admin"
+                }
+                if (!result.data.admin) {
+                    alert("Không có quyền truy cập !!")
+                }
+            }).catch(errors => alert(errors.response.data.message))
+        }
+        init();
     }
     return (
         <>
