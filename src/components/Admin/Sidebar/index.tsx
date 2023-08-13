@@ -1,8 +1,8 @@
-import React from 'react';
-import { OrderedListOutlined, CustomerServiceOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, CustomerServiceOutlined, OrderedListOutlined, SketchOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
-import { Link, useNavigate, useNavigation } from 'react-router-dom';
+import React from 'react';
+import { Link, useNavigation } from 'react-router-dom';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -34,6 +34,12 @@ const items: MenuProps['items'] = [
         getItem('Xem tất cả', '/admin/product'),
         getItem('Quản lí', '6'),
     ]),
+    getItem('Thương hiệu', 'sub3', <SketchOutlined />, [
+        {
+            label: (<Link to={"/admin/brands"}>Xem tất cả</Link>),
+            key: "/admin/brands"
+        }
+    ]),
     getItem('Đơn hàng', 'sub4', <OrderedListOutlined />, [
         // getItem('Xem tất cả', '/admin/order'),
         {
@@ -42,7 +48,6 @@ const items: MenuProps['items'] = [
         },
         getItem('Quản lí', '10')
     ]),
-
     getItem('Tài khoản', 'grp', null, [getItem('Thông tin tài khoản', '13'), getItem('Đổi mật khẩu', '14')], 'group'),
 ];
 
