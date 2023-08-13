@@ -11,14 +11,8 @@ const Users = () => {
     const [users, setUsers] = useState<User[]>();
     const id = query.get("id");
     const handleClick = () => {
-        const history = window.history;
-        const state = {
-            q: null,
-        };
         const newUrl = `${window.location.origin}${window.location.pathname}`;
-
-        history.pushState(state, "", newUrl);
-        setShowPage("list");
+        window.location.href = newUrl;
     }
     useEffect(() => {
         findAll_Users().then(resp => {

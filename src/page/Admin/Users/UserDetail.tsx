@@ -46,7 +46,7 @@ const UserDetail = (props: Props) => {
                                 <Input type="radio" register={register("admin")} name="phone" value={0} className="form-check-input mb-2" checked={user?.admin === false ? true : false || user === undefined} />
                                 <label className="form-check-label" >Customer</label>
                             </div>
-                            {user == null && <button type="submit" className="btn btn-primary">Create</button>}
+                            {user == null && <button type="submit" className="btn btn-primary">Thêm</button>}
                         </form>
                     </div>
                 </div>

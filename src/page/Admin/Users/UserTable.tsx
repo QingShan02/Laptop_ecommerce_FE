@@ -16,11 +16,11 @@ const UserTable = (props: Props) => {
                 <table className="table table-hover">
                     <tbody><tr className="table-primary">
                         <th>Id</th>
-                        <th>FullName</th>
+                        <th>Họ và Tên</th>
                         <th>Email</th>
-                        <th>Password</th>
-                        <th>Phone</th>
-                        <th>Role</th>
+                        <th>Mật Khẩu</th>
+                        <th>Số Điện Thoại</th>
+                        <th>Vai Trò</th>
                         <th></th>
                     </tr>
                     </tbody><tbody className="table-group-divider">
@@ -33,7 +33,7 @@ const UserTable = (props: Props) => {
                                     <td>{value.password}</td>
                                     <td>{value.phone}</td>
                                     <td>{value.admin ? "Admin" : "Customer"}</td>
-                                    <td><Link to={"/admin/users/?id=" + value.id} onClick={props.handleChange} className="text-decoration-none">Edit</Link></td>
+                                    <td><Link to={"/admin/users?id=" + value.id} onClick={props.handleChange} className="text-decoration-none">Edit</Link></td>
                                 </tr>
                             )
                         })}
