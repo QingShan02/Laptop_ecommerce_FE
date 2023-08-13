@@ -17,12 +17,12 @@ interface InputProps {
     onClick?: () => void,
     onChange?: (event: any) => void,
     register?: UseFormRegisterReturn;
-    checked? : boolean
+    checked?: boolean
 }
 
 const Input = ({ ...props }: InputProps) => {
     return (
-        <input type={props.type} checked={props.checked} className={props.className} id={props.id} name={props.name} placeholder={props.placeholder} value={props.value} onClick={props.onClick} onChange={props.onChange} {...props.register} />
+        <input defaultValue={props.defaultValue} type={props.type} checked={props.checked} className={props.className} id={props.id} name={props.name} placeholder={props.placeholder} onClick={props.onClick} onChange={props.onChange} {...props.register} />
     );
 }
 export default Input;
