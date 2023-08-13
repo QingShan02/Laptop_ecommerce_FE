@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { Product } from "src/common/model/Product";
+import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
+import { Link } from "react-router-dom";
 import Card from "src/components/Card";
 import Carousel from "src/components/Carousel";
 import { useFetch } from "src/util/CustomHook";
 import UserLayout from "../components/Layout/UserLayout";
-import { Link } from "react-router-dom";
-import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs"
 const Home = () => {
   const [data, setData] = useState<any>();
   const [page, setPage] = useState(0);

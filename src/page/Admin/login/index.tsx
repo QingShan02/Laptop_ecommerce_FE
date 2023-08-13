@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { LoginProps } from "src/common/types/LoginProps";
 
 const LoginAdmin = () => {
-    const [cookie,setCookie] = useCookies(['admin']);
+    const [cookie, setCookie] = useCookies(['admin']);
     const { register, handleSubmit, formState: { errors } } = useForm<LoginProps>();
 
-    const onSumit = (e:any) =>{
-        
+    const onSumit = (e: any) => {
+
     }
     return (
         <>
@@ -41,10 +41,10 @@ const LoginAdmin = () => {
                             <p className="text-center">or:</p>
                             {/* Email input */}
                             <div className="form-outline mb-4">
-                                <input type="email" id="loginName" {...register("email",{
-                                    required:{
-                                        value:true,
-                                        message:"Bạn không được bỏ trống"
+                                <input type="email" id="loginName" {...register("email", {
+                                    required: {
+                                        value: true,
+                                        message: "Bạn không được bỏ trống"
                                     }
                                 })} className="form-control" />
                                 <label className="form-label" htmlFor="loginName">Email or username</label>
@@ -52,10 +52,10 @@ const LoginAdmin = () => {
                             <div className="text-danger mt-1">{errors.email?.message}</div>
                             {/* Password input */}
                             <div className="form-outline mb-4">
-                                <input type="password" id="loginPassword" {...register("password",{
-                                    required:{
-                                        value:true,
-                                        message:"Bạn không được bỏ trống mật khẩu"
+                                <input type="password" id="loginPassword" {...register("password", {
+                                    required: {
+                                        value: true,
+                                        message: "Bạn không được bỏ trống mật khẩu"
                                     }
                                 })} className="form-control" />
                                 <label className="form-label" htmlFor="loginPassword">Password</label>

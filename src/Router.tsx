@@ -29,8 +29,8 @@ const admin = [
     element: <OrderAdmin />
   },
   {
-    path:"/admin/login",
-    element: <LoginAdmin/>
+    path: "/admin/login",
+    element: <LoginAdmin />
   }
 ]
 
