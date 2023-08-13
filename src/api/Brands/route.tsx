@@ -1,8 +1,8 @@
 import { Brand } from "src/common/model/Brand";
 import { useFetch } from "src/util/CustomHook";
 const hostURL = "/api/brand/";
-export async function findAll_Brands() {
-    const brands = await useFetch.get(hostURL);
+export async function findAll_Brands(page: number) {
+    const brands = await useFetch.get(hostURL + "?p=" + page);
     return brands.data;
 }
 export async function findById_Brands(id: string | null) {

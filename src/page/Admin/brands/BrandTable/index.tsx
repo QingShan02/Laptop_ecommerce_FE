@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Brand } from "src/common/model/Brand";
 
 type Props = {
-    list: Brand[] | undefined;
+    list: any;
     handleChange: () => void;
 }
 
@@ -20,7 +20,7 @@ const Brands = ({ ...props }: Props) => {
                         <th></th>
                     </tr>
                     </tbody><tbody className="table-group-divider">
-                        {list?.map((value, key) => {
+                        {list?.content?.map((value: any, key: any) => {
                             return (
                                 <tr className="table-default" key={key}>
                                     <td>{value.id}</td>
