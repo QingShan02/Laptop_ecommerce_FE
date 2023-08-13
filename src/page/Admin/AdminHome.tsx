@@ -1,4 +1,5 @@
 import AdminLayout from "src/components/Layout/AdminLayout";
+import AdminReport from "../Admin/AdminReport";
 const AdminHome = () => {
   // const [data, setData] = useState<Product[]>();
   // useEffect(() => {
@@ -10,9 +11,7 @@ const AdminHome = () => {
   // }, []);
   return (
     <AdminLayout>
-      <div className="report">
-        REPORT
-      </div>
+      <AdminReport />
     </AdminLayout>
   );
 }
