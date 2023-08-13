@@ -9,6 +9,7 @@ import MyAccount from "./page/MyAccount";
 import SearchPage from "./page/SearchPage";
 import Users from "./page/Admin/Users";
 import OrderAdmin from "./page/Admin/Order";
+import LoginAdmin from "./page/Admin/login";
 
 const admin = [
   {
@@ -26,6 +27,10 @@ const admin = [
   {
     path: "/admin/order",
     element: <OrderAdmin />
+  },
+  {
+    path:"/admin/login",
+    element: <LoginAdmin/>
   }
 ]
 
