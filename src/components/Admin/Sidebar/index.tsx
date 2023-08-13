@@ -2,7 +2,7 @@ import React from 'react';
 import { OrderedListOutlined, CustomerServiceOutlined, AppstoreOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
-import {  Link, useNavigate, useNavigation } from 'react-router-dom';
+import { Link, useNavigate, useNavigation } from 'react-router-dom';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -37,8 +37,8 @@ const items: MenuProps['items'] = [
     getItem('Đơn hàng', 'sub4', <OrderedListOutlined />, [
         // getItem('Xem tất cả', '/admin/order'),
         {
-            label:(<Link to={"/admin/order"}>Xem tất cả</Link>),
-            key:"/admin/order"
+            label: (<Link to={"/admin/order"}>Xem tất cả</Link>),
+            key: "/admin/order"
         },
         getItem('Quản lí', '10')
     ]),
@@ -53,7 +53,7 @@ const SideBar: React.FC = () => {
         // router(e.key);
         // router.location?.pathname
     };
-    
+
 
     return (
         <>
