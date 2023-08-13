@@ -6,7 +6,7 @@ import Home from "./page/Home";
 import Login from "./page/Login";
 import MyAccount from "./page/MyAccount";
 import SearchPage from "./page/SearchPage";
-import BrandPage from "./page/Admin/Brands";
+import BrandPage from "./page/Admin/brands";
 import Users from "./page/Admin/Users";
 import OrderAdmin from "./page/Admin/Order";
 import LoginAdmin from "./page/Admin/login";
