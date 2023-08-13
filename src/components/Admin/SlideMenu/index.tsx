@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 const SideMenu = () => {
     return (
@@ -5,9 +6,9 @@ const SideMenu = () => {
             <div className="p-3">
                 <ul className="nav nav-pills flex-column mb-auto">
                     <li>
-                        <a href="#1" className="nav-link link-success shadow-sm mb-3 bg-body rounded">
+                        <Link to="/admin/report" className="nav-link link-success shadow-sm mb-3 bg-body rounded">
                             Report
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <a href="#2" className="nav-link link-success shadow-sm mb-3 bg-body rounded">

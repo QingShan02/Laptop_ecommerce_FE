@@ -6,6 +6,7 @@ import CartPage from "./page/CartPage";
 import SearchPage from "./page/SearchPage";
 import AdminLayout from "./components/Layout/AdminLayout";
 import AdminHome from "./page/Admin/AdminHome";
+import AdminReport from "./page/Admin/AdminReport";
 import MyAccount from "./page/MyAccount";
 
 export const router = createBrowserRouter([
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
   {
     path: "/admin",
     element: <AdminHome />
+  },
+  {
+    path: "/admin/report",
+    element: <AdminReport />
   },
   {
     path:"/my-account",
