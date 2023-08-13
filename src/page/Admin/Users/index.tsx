@@ -3,8 +3,8 @@ import { delete_Users, findAll_Users } from "src/api/Customers/route";
 import User from "src/common/model/Users";
 import AdminLayout from "src/components/Layout/AdminLayout";
 import { useQuery } from "src/util/CustomHook";
-import UserTable from "./UserTable";
 import UserDetail from "./UserDetail";
+import UserTable from "./UserTable";
 
 const Users = () => {
     const query = useQuery();

@@ -1,5 +1,5 @@
 export interface Brand {
-    id: number | null,
+    id: number | null | string,
     name: string,
     logo: string
 }

@@ -1,8 +1,8 @@
-import Input from "src/components/Input";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { findById_Users } from "src/api/Customers/route";
 import Users from "src/common/model/Users";
+import Input from "src/components/Input";
 
 type Props = {
     id: string | null
