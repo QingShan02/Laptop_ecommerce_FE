@@ -1,17 +1,20 @@
-import { error } from "console";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { delete_Brands, findById_Brands, save_Brands, update_Brands } from "src/api/Brands/route";
 import { Brand } from "src/common/model/Brand";
 import Input from "src/components/Input";
-import { useFetch, useQuery } from "src/util/CustomHook";
+import { useQuery } from "src/util/CustomHook";
+
 type Props = {
     id: string | null,
     showEdit: string;
 }
+
 const BrandDetail = ({ ...props }: Props) => {
     const [brand, setBrand] = useState<Brand>();
     const query = useQuery();
+    const [flag, setFlag] = useState("");
+
     useEffect(() => {
         if (props.id) {
             findById_Brands(props.id).then(resp => {
@@ -19,8 +22,9 @@ const BrandDetail = ({ ...props }: Props) => {
             }).catch(error => console.log(error.message));
         }
     }, [props.id]);
+
     // SUBMIT FORM
-    const { register, handleSubmit } = useForm<Brand>();
+    const { register, handleSubmit, setFocus } = useForm<Brand>();
     const onSubmit: SubmitHandler<Brand> = (data) => {
         data.id = query.get("id");
         if (flag === "create") {
@@ -44,7 +48,9 @@ const BrandDetail = ({ ...props }: Props) => {
         console.log(data);
 
     }
-    const [flag, setFlag] = useState("");
+    setFocus("logo")
+    setFocus("name")
+
     return (
         <div className="row mt-3">
             <h3 className="text-center">Thông tin thương hiệu</h3>
@@ -58,7 +64,7 @@ const BrandDetail = ({ ...props }: Props) => {
                         <form action="" onSubmit={handleSubmit(onSubmit)} className="w-50 ps-3">
                             <Input type="text" register={register("name")} defaultValue={brand?.name} name="name" className="form-control mb-2" />
                             <Input type="text" register={register("logo")} defaultValue={brand?.logo} name="logo" className="form-control" />
-                            {/* <input type="text" defaultValue={brand?.name} /> */}
+
                             {props.showEdit === "create" && <>
                                 <button type="submit" onClick={() => setFlag("create")} className="btn btn-outline-primary mt-2 me-2">Tạo</button>
                             </>}

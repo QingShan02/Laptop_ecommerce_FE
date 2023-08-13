@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { delete_Brands, findAll_Brands } from "src/api/Brands/route";
+import { findAll_Brands } from "src/api/Brands/route";
 import { Brand } from "src/common/model/Brand";
 import AdminLayout from "src/components/Layout/AdminLayout";
 import { useQuery } from "src/util/CustomHook";
-import Brands from "./BrandTable";
 import BrandDetail from "./BrandDetail";
+import Brands from "./BrandTable";
 
 const BrandPage = () => {
     const query = useQuery();
@@ -12,10 +12,7 @@ const BrandPage = () => {
     const id = query.get("id");
     const [showPage, setShowPage] = useState("list");
     const [showEdit, setShowEdit] = useState("");
-    // const handleClick = () => {
-    //     const newUrl = `${window.location.origin}${window.location.pathname}`;
-    //     window.location.href = newUrl;
-    // }
+
     useEffect(() => {
         findAll_Brands().then(resp => {
             setBrands(resp)

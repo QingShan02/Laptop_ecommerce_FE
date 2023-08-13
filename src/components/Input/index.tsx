@@ -16,7 +16,7 @@ interface InputProps {
     width?: number,
     onClick?: () => void,
     onChange?: (event: any) => void,
-    register?: UseFormRegisterReturn;
+    register?: UseFormRegisterReturn,
     checked?: boolean
 }
 
