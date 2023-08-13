@@ -48,8 +48,8 @@ const BrandDetail = ({ ...props }: Props) => {
         console.log(data);
 
     }
-    setFocus("logo")
-    setFocus("name")
+    setFocus("logo", { shouldSelect: true })
+    setFocus("name", { shouldSelect: true })
 
     return (
         <div className="row mt-3">
