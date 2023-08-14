@@ -4,11 +4,14 @@ import CartPage from "./page/CartPage";
 import DetailProduct from "./page/DetailProduct";
 import Home from "./page/Home";
 import Login from "./page/Login";
+import AdminReport from "./page/Admin/AdminReport";
 import MyAccount from "./page/MyAccount";
 import SearchPage from "./page/SearchPage";
-import BrandPage from "./page/Admin/Brands";
+import BrandPage from "./page/Admin/brands";
 import Users from "./page/Admin/Users";
 import OrderAdmin from "./page/Admin/Order";
+import ProductAdmin from "./page/Admin/Product";
+import LoginAdmin from "./page/Admin/login";
 
 const admin = [
   {
@@ -26,6 +29,14 @@ const admin = [
   {
     path: "/admin/order",
     element: <OrderAdmin />
+  },
+  {
+    path: "/admin/product",
+    element: <ProductAdmin />
+  },
+  {
+    path: "/admin/login",
+    element: <LoginAdmin />
   }
 ]
 
@@ -55,8 +66,16 @@ const user = [
     element: <CartPage />
   },
   {
-    path: "/my-account",
-    element: <MyAccount />
+    path: "/admin",
+    element: <AdminHome />
+  },
+  {
+    path: "/admin/report",
+    element: <AdminReport />
+  },
+  {
+    path:"/my-account",
+    element:<MyAccount/>
   }
 ]
 

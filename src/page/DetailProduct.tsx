@@ -22,15 +22,15 @@ const DetailProduct = () => {
         init();
     }, []);
 
-    const submit = async(data: any) => {
-        if(cookie.user){
-            data = {...data,userId:cookie.user.id};
-            const{data:result} =await useFetch.post("/api/cart/save",data);
+    const submit = async (data: any) => {
+        if (cookie.user) {
+            data = { ...data, userId: cookie.user.id };
+            const { data: result } = await useFetch.post("/api/cart/save", data);
             console.log(result)
-            if(result ==0){
+            if (result == 0) {
                 window.location.href = "/cart";
             }
-        }else{
+        } else {
             window.location.href = "/login";
         }
 
@@ -57,16 +57,7 @@ const DetailProduct = () => {
                             <div id="carouselExampleControls" className="carousel slide shadow" data-bs-ride="carousel">
                                 <div className="carousel-inner bg-light ">
                                     <div className="carousel-item active">
-                                        <img className="w-100 h-100" src="img/product-1.jpg" alt="Image" />
-                                    </div>
-                                    <div className="carousel-item">
-                                        <img className="w-100 h-100" src="img/product-2.jpg" alt="Image" />
-                                    </div>
-                                    <div className="carousel-item">
-                                        <img className="w-100 h-100" src="img/product-3.jpg" alt="Image" />
-                                    </div>
-                                    <div className="carousel-item">
-                                        <img className="w-100 h-100" src="img/product-4.jpg" alt="Image" />
+                                        <img className="w-100 h-100" src={data?.logo} alt="Image" />
                                     </div>
                                 </div>
                                 <a className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">

@@ -2,7 +2,9 @@ import { AppstoreOutlined, CustomerServiceOutlined, OrderedListOutlined, SketchO
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import React from 'react';
+import { FaEdit, FaHome, FaInfoCircle, FaList, FaListAlt, FaPassport, FaUserAlt } from 'react-icons/fa';
 import { Link, useNavigation } from 'react-router-dom';
+import "./index.css";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -23,32 +25,52 @@ function getItem(
 }
 
 const items: MenuProps['items'] = [
-    getItem("Trang chủ", "/admin"),
+    getItem("Trang chủ", "/admin", <FaHome />, [
+        {
+            label: (<Link to={"/admin"}>Thống Kê</Link>),
+            key: "/admin",
+            icon: <FaListAlt />
+        },
+        {
+            label: (<Link to={"/"}>Trang bán hàng</Link>),
+            key: "/admin",
+            icon: <FaHome />
+        }
+    ]),
     { type: 'divider' },
     getItem('Khách Hàng', 'sub1', <CustomerServiceOutlined />, [
-        getItem('Xem tất cả', '/admin/users'),
-        getItem('Quản lí', 'g2'),
+        getItem('Xem tất cả', '/admin/users', <FaList />),
+        getItem('Quản lí', 'g2', <FaEdit />),
     ]),
 
     getItem('Sản phẩm', 'sub2', <AppstoreOutlined />, [
-        getItem('Xem tất cả', '/admin/product'),
-        getItem('Quản lí', '6'),
+        {
+            label: (<Link to={"/admin/product"}>Xem tất cả</Link>),
+            key: "/admin/product",
+            icon: <FaList />
+        },
+        {
+            label: (<Link to={"/admin/product"}>Quản lí</Link>),
+            key: "/admin/product",
+            icon: <FaEdit />
+        }
     ]),
     getItem('Thương hiệu', 'sub3', <SketchOutlined />, [
         {
             label: (<Link to={"/admin/brands"}>Xem tất cả</Link>),
-            key: "/admin/brands"
+            key: "/admin/brands",
+            icon: <FaList />
         }
     ]),
     getItem('Đơn hàng', 'sub4', <OrderedListOutlined />, [
-        // getItem('Xem tất cả', '/admin/order'),
         {
             label: (<Link to={"/admin/order"}>Xem tất cả</Link>),
-            key: "/admin/order"
+            key: "/admin/order",
+            icon: <FaList />
         },
-        getItem('Quản lí', '10')
+        getItem('Quản lí', '10', <FaEdit />)
     ]),
-    getItem('Tài khoản', 'grp', null, [getItem('Thông tin tài khoản', '13'), getItem('Đổi mật khẩu', '14')], 'group'),
+    getItem('Tài khoản', 'grp', null, [getItem('Thông tin tài khoản', '13', <FaUserAlt />), getItem('Đổi mật khẩu', '14', <FaEdit />)], 'group'),
 ];
 
 const SideBar: React.FC = () => {
