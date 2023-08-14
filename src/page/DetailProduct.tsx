@@ -16,15 +16,18 @@ const DetailProduct = () => {
 
     useEffect(() => {
         const init = async () => {
-            const { data: result } = await useFetch.get("/api/product/" + query.get("id"));
-            setData(result);
+            if(!data){
+                const { data: result } = await useFetch.get("/api/product/" + query.get("id"));
+                setData(result);
+            }
+
         }
         init();
     }, []);
 
     const submit = async (data: any) => {
         if (cookie.user) {
-            data = { ...data, userId: cookie.user.id };
+            data = { ...data,quantity:quantity, userId: cookie.user.id };
             const { data: result } = await useFetch.post("/api/cart/save", data);
             console.log(result)
             if (result == 0) {

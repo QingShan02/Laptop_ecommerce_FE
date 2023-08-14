@@ -11,6 +11,7 @@ import BrandPage from "./page/Admin/brands";
 import Users from "./page/Admin/Users";
 import OrderAdmin from "./page/Admin/Order";
 import LoginAdmin from "./page/Admin/login";
+import OrderDetal from "./page/Admin/Order/OrderDetail";
 
 const admin = [
   {
@@ -32,6 +33,10 @@ const admin = [
   {
     path: "/admin/login",
     element: <LoginAdmin />
+  },
+  {
+    path:"/admin/order/detail",
+    element:<OrderDetal/>
   }
 ]
 
