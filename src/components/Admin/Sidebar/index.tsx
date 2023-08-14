@@ -4,6 +4,7 @@ import { Menu } from 'antd';
 import React from 'react';
 import { FaEdit, FaHome, FaInfoCircle, FaList, FaListAlt, FaPassport, FaUserAlt } from 'react-icons/fa';
 import { Link, useNavigation } from 'react-router-dom';
+import "./index.css";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -43,8 +44,16 @@ const items: MenuProps['items'] = [
     ]),
 
     getItem('Sản phẩm', 'sub2', <AppstoreOutlined />, [
-        getItem('Xem tất cả', '/admin/product', <FaList />),
-        getItem('Quản lí', '6', <FaEdit />),
+        {
+            label: (<Link to={"/admin/product"}>Xem tất cả</Link>),
+            key: "/admin/product",
+            icon: <FaList />
+        },
+        {
+            label: (<Link to={"/admin/product"}>Quản lí</Link>),
+            key: "/admin/product",
+            icon: <FaEdit />
+        }
     ]),
     getItem('Thương hiệu', 'sub3', <SketchOutlined />, [
         {
@@ -54,7 +63,6 @@ const items: MenuProps['items'] = [
         }
     ]),
     getItem('Đơn hàng', 'sub4', <OrderedListOutlined />, [
-        // getItem('Xem tất cả', '/admin/order'),
         {
             label: (<Link to={"/admin/order"}>Xem tất cả</Link>),
             key: "/admin/order",

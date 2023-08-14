@@ -62,8 +62,8 @@ const AdminHome = () => {
 
   return (
     <div className="container">
-      <div className="d-flex">
-        <div className="p-2 flex-fill">
+      <div className="row m-auto">
+        <div className="col p-2">
           <div className="card" style={{ width: '30rem' }}>
             <div className="card-body">
               <h5 className="card-title">Sản phẩm được đặt mua nhiều nhất trong tháng</h5>
@@ -90,7 +90,7 @@ const AdminHome = () => {
           </div>
         </div>
 
-        <div className="p-2 flex-fill">
+        <div className="col p-2">
           <div className="card" style={{ width: '30rem' }}>
             <div className="card-body">
               <h5 className="card-title">Khách hàng đặt mua nhiều nhất trong tháng</h5>
