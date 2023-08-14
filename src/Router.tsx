@@ -1,18 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
 import AdminHome from "./page/Admin/AdminHome";
+import AdminReport from "./page/Admin/AdminReport";
+import BrandAdmin from "./page/Admin/Brand";
+import OrderAdmin from "./page/Admin/Order";
+import ProductAdmin from "./page/Admin/Product";
+import Users from "./page/Admin/Users";
 import CartPage from "./page/CartPage";
 import DetailProduct from "./page/DetailProduct";
 import Home from "./page/Home";
-import AdminReport from "./page/Admin/AdminReport";
-import MyAccount from "./page/MyAccount";
-import SearchPage from "./page/Search/SearchPage";
-import BrandPage from "./page/Admin/brands";
-import Users from "./page/Admin/Users";
-import OrderAdmin from "./page/Admin/Order";
-import ProductAdmin from "./page/Admin/Product";
-import LoginAdmin from "./page/Admin/login";
 import Login from "./page/Login";
+import MyAccount from "./page/MyAccount";
 import Register from "./page/Register";
+import SearchPage from "./page/Search/SearchPage";
+import LoginAdmin from "./page/Admin/Login";
 
 const admin = [
   {
@@ -21,7 +21,7 @@ const admin = [
   },
   {
     path: "/admin/brands",
-    element: <BrandPage />
+    element: <BrandAdmin />
   },
   {
     path: "/admin/users",
