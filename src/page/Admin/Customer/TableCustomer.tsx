@@ -110,7 +110,7 @@ function ProductAdmin() {
             setDataSource(result);
         }
         init();
-    }, [dataSource]);
+    }, []);
 
     const columns: ColumnsType<Customer> = [
         {
