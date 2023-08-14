@@ -24,7 +24,7 @@ const BrandDetail = ({ ...props }: Props) => {
     }, [props.id]);
 
     // SUBMIT FORM
-    const { register, handleSubmit, setFocus } = useForm<Brand>();
+    const { register, handleSubmit, setFocus, formState: { errors } } = useForm<Brand>();
     const onSubmit: SubmitHandler<Brand> = (data) => {
         data.id = query.get("id");
         if (flag === "create") {
@@ -62,9 +62,20 @@ const BrandDetail = ({ ...props }: Props) => {
                     </div>
                     <div className="col-8">
                         <form action="" onSubmit={handleSubmit(onSubmit)} className="w-50 ps-3">
-                            <Input type="text" register={register("name")} defaultValue={brand?.name} name="name" className="form-control mb-2" />
-                            <Input type="text" register={register("logo")} defaultValue={brand?.logo} name="logo" className="form-control" />
-
+                            <Input type="text" register={register("name", {
+                                required: {
+                                    value: true,
+                                    message: "Bạn không được bỏ trống"
+                                }
+                            })} defaultValue={brand?.name} name="name" className="form-control mb-2" />
+                            <div className="text-danger mt-1">{errors.name?.message}</div>
+                            <Input type="text" register={register("logo", {
+                                required: {
+                                    value: true,
+                                    message: "Bạn không được bỏ trống"
+                                }
+                            })} defaultValue={brand?.logo} name="logo" className="form-control" />
+                            <div className="text-danger mt-1">{errors.logo?.message}</div>
                             {props.showEdit === "create" && <>
                                 <button type="submit" onClick={() => setFlag("create")} className="btn btn-outline-primary mt-2 me-2">Tạo</button>
                             </>}

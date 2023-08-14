@@ -7,7 +7,10 @@ const Card = ({ ...props }: CardProps) => {
         <div className={`card ${props.className}`} id={`card_${props.id}`}>
             <img className="card-img-top" src={props.data.logo} alt="Title" />
             <div className="card-body">
+                <hr />
                 <Link className="card-title h5 text-decoration-none" to={"/product?id=" + props.data.id}>{props.data.name}</Link>
+            </div>
+            <div className="card-footer">
                 <p className="card-text">Giá: {formatter.format(props.data.price)}</p>
             </div>
         </div>
