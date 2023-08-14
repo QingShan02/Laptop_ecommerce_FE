@@ -99,6 +99,7 @@ function ProductAdmin() {
         console.log('Received values of form: ', values);
         useFetch.post("/api/users/save", values);
         setOpen(false);
+        window.location.href="/admin/customer"
     };
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [editingCustomer, setEditingCustomer] = useState<any>(null);
