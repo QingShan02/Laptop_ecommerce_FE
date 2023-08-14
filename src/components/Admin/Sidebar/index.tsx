@@ -39,8 +39,16 @@ const items: MenuProps['items'] = [
     ]),
     { type: 'divider' },
     getItem('Khách Hàng', 'sub1', <CustomerServiceOutlined />, [
-        getItem('Xem tất cả', '/admin/users', <FaList />),
-        getItem('Quản lí', 'g2', <FaEdit />),
+        {
+            label: (<Link to={"/admin/customer"}>Xem tất cả</Link>),
+            key: "/admin/customer",
+            icon: <FaList />
+        },
+        {
+            label: (<Link to={"/admin/customer"}>Quản lí</Link>),
+            key: "/admin/customer",
+            icon: <FaEdit />
+        }
     ]),
 
     getItem('Sản phẩm', 'sub2', <AppstoreOutlined />, [

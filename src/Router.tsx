@@ -7,8 +7,8 @@ import Login from "./page/Login";
 import AdminReport from "./page/Admin/AdminReport";
 import MyAccount from "./page/MyAccount";
 import SearchPage from "./page/SearchPage";
-import BrandPage from "./page/Admin/brands";
-import Users from "./page/Admin/Users";
+// import BrandPage from "./page/Admin/brands";
+import CustomerAdmin from "./page/Admin/Customer";
 import OrderAdmin from "./page/Admin/Order";
 import ProductAdmin from "./page/Admin/Product";
 import LoginAdmin from "./page/Admin/login";
@@ -18,13 +18,13 @@ const admin = [
     path: "/admin",
     element: <AdminHome />
   },
+  // {
+  //   path: "/admin/brands",
+  //   element: <BrandPage />
+  // },
   {
-    path: "/admin/brands",
-    element: <BrandPage />
-  },
-  {
-    path: "/admin/users",
-    element: <Users />
+    path: "/admin/customer",
+    element: <CustomerAdmin />
   },
   {
     path: "/admin/order",

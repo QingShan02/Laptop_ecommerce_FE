@@ -1,5 +1,5 @@
 
-import Users from "src/common/model/Users";
+import Users from "src/common/model/Customer";
 import { useFetch } from "src/util/CustomHook";
 const hostURL = "/users/";
 export async function findAll_Users() {
