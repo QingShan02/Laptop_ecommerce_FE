@@ -6,23 +6,24 @@ import { useFetch } from 'src/util/CustomHook';
 import { Product } from 'src/common/model/Product';
 import { Link } from 'react-router-dom';
 
-interface User{
+interface User {
     fullname: string;
 }
 interface ExpandedDataType {
     key: React.Key;
     id: string;
-    product:{
-        name:string;
+    product: {
+        name: string;
     };
 }
 interface DataType {
     key: React.Key;
     id: string;
-    name:string;
+    name: string;
     place: string;
     buyDate: string;
-    customerName:String;
+    customerName: String;
+    status: number;
     order_details: Array<ExpandedDataType>
 }
 
@@ -39,10 +40,10 @@ const TableOrder: React.FC = () => {
         const init = async () => {
             if (data.length == 0) {
                 const { data: result } = await useFetch.get("/api/order");
-                result.forEach((s:any)=>{
+                result.forEach((s: any) => {
                     s = {
                         ...s,
-                        key:s.id
+                        key: s.id
                     }
                 })
                 console.log(result);
@@ -51,6 +52,8 @@ const TableOrder: React.FC = () => {
         }
         init();
     })
+    console.log(data);
+
 
 
 
@@ -104,8 +107,8 @@ const TableOrder: React.FC = () => {
         { title: 'Nơi nhận', dataIndex: 'place', key: 'place' },
         { title: 'Khách hàng', dataIndex: 'customerName', key: 'customerName' },
         { title: 'Ngày tạo', dataIndex: 'buyDate', key: 'buyDate' },
-        {title:"",dataIndex:"view",render:(value, record, index) =><Link to={"/admin/order/detail?ordId="+record.id}>Xem chi tiết</Link>},
-        { title: 'Trạng thái', key: 'operation', render: () => <a>Đang lên đơn</a> },
+        { title: "", dataIndex: "view", render: (value, record, index) => <Link to={"/admin/order/detail?ordId=" + record.id}>Xem chi tiết</Link> },
+        { title: 'Trạng thái', dataIndex: 'status', key: 'status', render: () => <a>Đang lên đơn</a> },
     ];
 
     //   const data: DataType[] = [];

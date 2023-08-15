@@ -71,13 +71,37 @@ const OrderDetal = () => {
         if (!data) {
             init();
         }
-    })
+    });
+    console.log(data);
+
+
+    const handleSwitcherToggle = async (checked: boolean) => {
+        // Gọi API khi trạng thái thay đổi thành true
+        if (checked) {
+            // Thực hiện cuộc gọi API ở đây
+            console.log(checked);
+
+            try {
+                const response = await useFetch.put("/api/order/update", {
+                    id: data?.id,
+                    buy_date: data?.buyDate,
+                    place: data?.place,
+                    user: data?.user,
+                    status: 1
+                });
+                console.log('API response:', response);
+            } catch (error) {
+                console.error('API error:', error);
+            }
+        }
+    };
+
     return (
         <AdminLayout>
             <h4 className="mt-5">Chi tiết đơn hàng</h4>
             <h6>Id: {data?.id}</h6>
-            <p>Trạng thái:</p>
-            <p>Đang giao hàng : <Switcher check={data?.status && false}/></p>
+            <p>Trạng thái: {data?.status == 0 ? "Đang xử lí" : "Đang giao"}</p>
+            <p>Đang giao hàng : <Switcher check={data?.status === 1} onToggle={handleSwitcherToggle} /></p>
             <div className="container">
                 {
                     data?.order_details.map((s: any) => {

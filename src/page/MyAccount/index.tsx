@@ -7,25 +7,45 @@ import 'react-tabs/style/react-tabs.css';
 import { FaHeart, FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import OrderItem from "./OrderItem";
 import { useFetch } from "src/util/CustomHook";
+import { on } from "stream";
 
 const MyAccount = () => {
     const [cookie] = useCookies(['user']);
-    const [data,setData] = useState<any>();
+    const [data, setData] = useState<any>();
     const [user, setUser] = useState<any>();
-    const init = async() =>{
-        const {data:result} = await useFetch.get("/api/order",{params:{userId:cookie.user.id}});
+    const [dataStatus0, setDataStatus0] = useState<any>();
+    const [dataStatus1, setDataStatus1] = useState<any>();
+    const init = async () => {
+        const { data: result } = await useFetch.get("/api/order", { params: { userId: cookie.user.id } });
         setData(result);
     }
+
+    const dataStatusDxl = async () => {
+        const { data: result2 } = await useFetch.get("/api/order/fillOrdersByStatus", { params: { userId: cookie.user.id, status: 0 } });
+        setDataStatus0(result2);
+    }
+
+    const dataStatusDg = async () => {
+        const { data: result } = await useFetch.get("/api/order/fillOrdersByStatus", { params: { userId: cookie.user.id, status: 1 } });
+        setDataStatus1(result);
+    }
+
     useEffect(() => {
         if (cookie.user == null || cookie.user == undefined) {
             window.location.href = "/login";
-            return ;
+            return;
         } else {
             setUser(cookie.user);
         }
         init();
+        dataStatusDxl();
+        dataStatusDg();
     }, []);
-    console.log(data);
+
+
+
+    // console.log(data);
+
     return (
         <UserLayout>
             <section className="h-100 gradient-custom-2">
@@ -63,18 +83,21 @@ const MyAccount = () => {
                                         </div> */}
                                         <Tabs className={"py-4"}>
                                             <TabList>
-                                                <Tab>Đang xử lí</Tab>
-                                                <Tab>Đang giao</Tab>
+                                                <Tab>Đang xử lí ({dataStatus0?.length})</Tab>
+                                                <Tab>Đang giao ({dataStatus1?.length})</Tab>
                                                 <Tab>Đã giao</Tab>
                                             </TabList>
 
-                                            <TabPanel>
-                                                {
-                                                    data?.map((s:any)=><OrderItem key={s.id} object={s}/>)
+                                            <TabPanel >
+                                                {dataStatus0?.length == 0 ? <><div className="justify-content-center d-flex mt-4 text-primary">Không có đơn hàng nào đang xử lý</div></> :
+                                                    dataStatus0?.map((s: any) => <OrderItem key={s.id} object={s} />)
+
                                                 }
                                             </TabPanel>
-                                            <TabPanel>
-                                                <h2>Any content 2</h2>
+                                            <TabPanel >
+                                                {dataStatus1?.length == 0 ? <><div className="justify-content-center d-flex mt-4">Không có đơn hàng nào đang giao</div></> :
+                                                    dataStatus1?.map((s: any) => <OrderItem key={s.id} object={s} />)
+                                                }
                                             </TabPanel>
                                             <TabPanel>
                                                 <h2>Any content 2</h2>
