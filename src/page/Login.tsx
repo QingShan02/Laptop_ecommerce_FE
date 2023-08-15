@@ -60,6 +60,10 @@ const Login = () => {
                                         <Input className="form-check-input" type="checkbox" name="remember" id="remember" register={register("remember")} />
                                         <label className="form-check-label" htmlFor="form2Example31"> Remember me </label>
                                     </div>
+                                    {/* Register */}
+                                    <div className="form-check">
+                                        <a href="/register" className="form-check-label"> Đăng ký </a>
+                                    </div>
                                 </div>
                             </div>
                             {/* Submit button */}

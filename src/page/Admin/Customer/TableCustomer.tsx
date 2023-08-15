@@ -23,7 +23,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }: any) => {
                     .then((values) => {
                         form.resetFields();
                         onCreate(values);
-                    
+
                     })
                     .catch((info) => {
                         console.log('Validate Failed:', info);
@@ -84,9 +84,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }: any) => {
                 </Form.Item>
 
                 <Form.Item name="admin" className="collection-create-form_last-form-item" >
-                    <Radio.Group>
-                        <Radio value="false" defaultChecked={true} disabled>Khách Hàng</Radio>
-                    </Radio.Group>
+                    <Radio value="false" defaultChecked disabled  >Khách Hàng</Radio>
                 </Form.Item>
             </Form>
         </Modal>
@@ -99,7 +97,7 @@ function ProductAdmin() {
         console.log('Received values of form: ', values);
         useFetch.post("/api/users/save", values);
         setOpen(false);
-        window.location.href="/admin/customer"
+        window.location.href = "/admin/customer"
     };
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [editingCustomer, setEditingCustomer] = useState<any>(null);

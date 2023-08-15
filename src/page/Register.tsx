@@ -1,22 +1,31 @@
+import { useCookies } from "react-cookie";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { RegisterProps } from "src/common/types/RegisterProps";
 import { useFetch } from "src/util/CustomHook";
 import Input from "../components/Input";
 
 const Register = () => {
+    const [cookie, setCookie] = useCookies(['user']);
     const { register, handleSubmit, formState: { errors } } = useForm<RegisterProps>();
     const onSubmit: SubmitHandler<RegisterProps> = (data) => {
+
         async function init() {
-            await useFetch.post("/api/auth/login", data).then(result => {
-                window.location.href = "http://localhost:3000/"
-            }).catch(errors => alert(errors.response.data.message))
+            if (data.password === data.repassword) {
+                await useFetch.post("/api/auth/register", data).then(result => {
+                    alert("Đăng ký thành công !")
+                    setCookie("user", JSON.stringify(result.data))
+                    window.location.href = "http://localhost:3000/"
+                }).catch(errors => alert(errors.response.data.message))
+            } else {
+                alert("Mật không đúng !")
+            }
         }
         init();
     };
 
     return (
         <>
-            <div className="container-fluid bg-white" style={{ paddingBlock: "50px", height: "100vh" }}>
+            <div className="container-fluid bg-white" style={{ paddingBlock: "20px", height: "100vh" }}>
                 <div className="row">
                     <div className="col-md-1 col-lg-1"></div>
                     <div className="col-12 col-sm-12 col-md-4 col-lg-4 bg-white">
@@ -27,6 +36,17 @@ const Register = () => {
                             <div className="form-outline mb-4">
                                 <label className="form-label" htmlFor="email">Họ và tên:</label>
                                 <Input type="text" name="fullname" id="fullname" className="form-control" register={register("fullname", {
+                                    required: {
+                                        value: true,
+                                        message: "Bạn không được bỏ trống"
+                                    }
+                                })} />
+                                <div className="text-danger mt-1">{errors.fullname?.message}</div>
+                            </div>
+                            {/* Phone input */}
+                            <div className="form-outline mb-4">
+                                <label className="form-label" htmlFor="phone">Số điện thoại:</label>
+                                <Input type="text" name="phone" id="phone" className="form-control" register={register("phone", {
                                     required: {
                                         value: true,
                                         message: "Bạn không được bỏ trống"
