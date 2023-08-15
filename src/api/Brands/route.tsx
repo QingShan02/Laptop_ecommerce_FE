@@ -17,7 +17,7 @@ export async function delete_Brands(id: string | null) {
     const brands = await useFetch.delete(hostURL + id);
     return brands.status;
 }
-export async function update_Brands(id: string | null, data: Brand) {
+export async function update_Brands(id: string | null | number | undefined, data: Brand) {
     const brands = await useFetch.put(hostURL + id, data);
     return brands.status;
 }
