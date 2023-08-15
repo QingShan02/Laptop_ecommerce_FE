@@ -5,7 +5,7 @@ import { FaMinus, FaPlus, FaTrash, FaHeart } from "react-icons/fa"
 import { useFetch } from "src/util/CustomHook";
 import { formatter } from "src/util/formatCurrency";
 
-const CartItem = ({object,handleChangeUp, handleDeleteItem}:{object:any,handleChangeUp:(value:any)=>void,handleDeleteItem: (id:any) =>void}) => {
+const CartItem = ({ object, handleChangeUp, handleDeleteItem, enableButton }: { object: any, handleChangeUp: (value: any) => void, handleDeleteItem: (id: any) => void,enableButton?:boolean }) => {
   return (
     <>
       <div className="row">
@@ -23,7 +23,7 @@ const CartItem = ({object,handleChangeUp, handleDeleteItem}:{object:any,handleCh
           {/* Data */}
           <p><strong>{object.product.name}</strong></p>
           <p>Màu sắc: {object.product.color.name}</p>
-          <button type="button" onClick={()=>{handleDeleteItem(object.cartId);}} className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item">
+          <button type="button" onClick={() => { handleDeleteItem(object.cartId); }} className="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" title="Remove item">
             <FaTrash />
           </button>
           <button type="button" className="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip" title="Move to the wish list">
@@ -34,21 +34,21 @@ const CartItem = ({object,handleChangeUp, handleDeleteItem}:{object:any,handleCh
         <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
           {/* Quantity */}
           <div className="d-flex mb-4" style={{ maxWidth: 300 }}>
-            <button className="btn btn-primary px-3 me-2 h-50" >
+            <button className="btn btn-primary px-3 me-2 h-50" disabled>
               <FaMinus />
             </button>
             <div className="form-outline">
-              <input id="form1" min={0} name="quantity" value={object.quantity} type="number" className="form-control" />
+              <input id="form1" min={0} name="quantity" value={object.quantity} type="number" className="form-control" disabled />
               <label className="form-label" htmlFor="form1">Số lượng</label>
             </div>
-            <button onClick={()=>{handleChangeUp(object.quantity)}} className="btn btn-primary px-3 ms-2 h-50" >
+            <button onClick={() => { handleChangeUp(object.quantity) }} className="btn btn-primary px-3 ms-2 h-50" disabled >
               <FaPlus />
             </button>
           </div>
           {/* Quantity */}
           {/* Price */}
           <p className="text-start text-md-center">
-            <strong>{formatter.format(object.quantity * object.product.price)}</strong>
+            <strong>{formatter.format(object.product.price)}</strong>
           </p>
           {/* Price */}
         </div>
@@ -77,26 +77,26 @@ const CartPage = () => {
       init();
     }
   }
-  const sum = (a:any,b:any) =>{
-    return a+b;
+  const sum = (a: any, b: any) => {
+    return a + b;
   }
-  const saveOrder = async(e:any) =>{
+  const saveOrder = async (e: any) => {
     e.preventDefault();
     console.log(data);
     const param = {
       customerId: cookie.user.id,
-      place:"",
-      order_details:[
+      place: "",
+      order_details: [
         ...data
       ]
     }
-    const {data:result} = await useFetch.post("/api/order/save",param);
-    if(result == 1){
-      window.location.href="/my-account";
+    const { data: result } = await useFetch.post("/api/order/save", param);
+    if (result == 1) {
+      window.location.href = "/my-account";
     }
   }
   console.log(data);
-  const total = data?.length==0 ?  0:data?.map((s:any)=>s.quantity*s.product.price).reduce(sum);
+  const total = data?.length == 0 ? 0 : data?.map((s: any) => s.quantity * s.product.price).reduce(sum);
   return (
     <UserLayout>
       <div className="container">
@@ -110,12 +110,12 @@ const CartPage = () => {
                   </div>
                   <div className="card-body">
                     {
-                      data?.map((s:any) =>{
-                        const handleChangeUp = (value:any) =>{
+                      data?.map((s: any) => {
+                        const handleChangeUp = (value: any) => {
                           // data.filter((y:any)=>y.id == s.id)[0];
-                          setData((e:any)=>[...e,{...s,quantity:value++}])
+                          setData((e: any) => [...e, { ...s, quantity: value++ }])
                         }
-                        return <CartItem handleChangeUp={handleChangeUp} object={s} handleDeleteItem={handleDeleteItem} />
+                        return <CartItem enableButton={false} handleChangeUp={handleChangeUp} object={s} handleDeleteItem={handleDeleteItem} />
                       })
                     }
                   </div>
@@ -143,14 +143,36 @@ const CartPage = () => {
                   </div>
                   <div className="card-body">
                     <ul className="list-group list-group-flush">
-                      <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                      {
+                        data?.map((s: any) => {
+                          return <>
+                            <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                              Sản phẩm
+                              <span>{s.product.name}</span>
+                            </li>
+                            <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                              Giá
+                              <span>{formatter.format(s.product.price)}</span>
+                            </li>
+                            <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                              Số lượng
+                              <span>{s.quantity}</span>
+                            </li>
+                            <li className="list-group-item d-flex justify-content-between align-items-center px-0">
+                              Thành tiền
+                              <span>{formatter.format(s.quantity*s.product.price)}</span>
+                            </li>
+                          </>
+                        })
+                      }
+                      {/* <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                         Sản phẩm
-                        <span>{formatter.format(total|| 0)}</span>
+                        <span>{formatter.format(total || 0)}</span>
                       </li>
                       <li className="list-group-item d-flex justify-content-between align-items-center px-0">
                         Giao hàng
                         <span>Gratis</span>
-                      </li>
+                      </li> */}
                       <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                         <div>
                           <strong>Tổng đơn hàng</strong>
@@ -158,7 +180,7 @@ const CartPage = () => {
                             <p className="mb-0">(Bao gồm VAT)</p>
                           </strong>
                         </div>
-                        <span><strong>{formatter.format(total|| 0)}</strong></span>
+                        <span><strong>{formatter.format(total || 0)}</strong></span>
                       </li>
                     </ul>
                     <button type="button" onClick={saveOrder} className="btn btn-primary btn-lg btn-block">

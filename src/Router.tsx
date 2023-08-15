@@ -4,7 +4,6 @@ import AdminReport from "./page/Admin/AdminReport";
 import BrandAdmin from "./page/Admin/Brand";
 import OrderAdmin from "./page/Admin/Order";
 import ProductAdmin from "./page/Admin/Product";
-import Users from "./page/Admin/Users";
 import CartPage from "./page/CartPage";
 import DetailProduct from "./page/DetailProduct";
 import Home from "./page/Home";
@@ -13,6 +12,8 @@ import MyAccount from "./page/MyAccount";
 import Register from "./page/Register";
 import SearchPage from "./page/Search/SearchPage";
 import LoginAdmin from "./page/Admin/Login";
+import CustomerAdmin from "./page/Admin/Customer";
+import OrderDetal from "./page/Admin/Order/OrderDetail";
 
 const admin = [
   {
@@ -24,8 +25,8 @@ const admin = [
     element: <BrandAdmin />
   },
   {
-    path: "/admin/users",
-    element: <Users />
+    path: "/admin/customer",
+    element: <CustomerAdmin />
   },
   {
     path: "/admin/order",
@@ -38,6 +39,10 @@ const admin = [
   {
     path: "/admin/login",
     element: <LoginAdmin />
+  },
+  {
+    path: "/admin/order/detail",
+    element: <OrderDetal />
   }
 ]
 

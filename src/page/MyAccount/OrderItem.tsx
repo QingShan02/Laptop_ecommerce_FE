@@ -5,7 +5,7 @@ import { formatter } from "src/util/formatCurrency";
 const ProductItem = ({ object, quantity }: any) => {
     return (
         <>
-            <div className="card-body row">
+            <div className="card-body row" >
                 <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
                     {/* Image */}
                     <div className="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
@@ -53,7 +53,7 @@ const OrderItem = ({ object }: any) => {
     const [show, setShow] = useState(false);
     return (
         <>
-            <div className="card mb-3">
+            <div className="card mb-3" >
                 <div className="card-header d-flex justify-content-between align-items-center">
                     <section>ID: {object.id} - Ngày Mua: {object.buyDate}</section>
                     <button onClick={() => setShow(!show)} className="btn btn-default">Xem chi tiết</button>
