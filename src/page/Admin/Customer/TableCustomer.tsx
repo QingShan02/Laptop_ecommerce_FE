@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Table, Modal, Input, Form, Radio } from "antd";
+import { Button, Table, Modal, Input, Form, Radio, Alert } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useFetch } from "src/util/CustomHook";
 import Customer from "src/common/model/Customer";
@@ -23,7 +23,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }: any) => {
                     .then((values) => {
                         form.resetFields();
                         onCreate(values);
-                    
+
                     })
                     .catch((info) => {
                         console.log('Validate Failed:', info);
@@ -84,9 +84,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }: any) => {
                 </Form.Item>
 
                 <Form.Item name="admin" className="collection-create-form_last-form-item" >
-                    <Radio.Group>
-                        <Radio value="false" defaultChecked={true} disabled>Khách Hàng</Radio>
-                    </Radio.Group>
+                    <Radio value="false" defaultChecked disabled>Khách Hàng</Radio>
                 </Form.Item>
             </Form>
         </Modal>
@@ -97,9 +95,9 @@ function ProductAdmin() {
     const [open, setOpen] = useState(false);
     const onCreate = (values: any) => {
         console.log('Received values of form: ', values);
-        useFetch.post("/api/users/save", values);
+        useFetch.post("/api/users/save", values).then(s => { alert("Thêm thành công") }).catch(e => { alert("Lỗi " +e)  });
         setOpen(false);
-        window.location.href="/admin/customer"
+        window.location.href = "/admin/customer"
     };
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [editingCustomer, setEditingCustomer] = useState<any>(null);
@@ -170,7 +168,9 @@ function ProductAdmin() {
             okType: "danger",
             onOk: () => {
                 setDataSource((prev: any) => {
-                    useFetch.delete(`/api/users/${record.id}`)
+                    useFetch.delete(`/api/users/${record.id}`).then(s => {alert("Cập nhật thành công")}).catch(e => {
+                        alert("Lỗi" + e)
+                    })
                     return prev.filter((customer: any) => customer.id !== record.id);
                 });
             },
