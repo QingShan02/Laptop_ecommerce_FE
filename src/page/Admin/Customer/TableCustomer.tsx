@@ -95,7 +95,7 @@ function ProductAdmin() {
     const [open, setOpen] = useState(false);
     const onCreate = (values: any) => {
         console.log('Received values of form: ', values);
-        useFetch.post("/api/users/save", values).then(s => { alert("Thêm thành công") }).catch(e => { alert("Lỗi " +e)  });
+        useFetch.post("/api/users/save", values).then(s => { alert("Thêm thành công") }).catch(e => { alert("Lỗi " + e) });
         setOpen(false);
         window.location.href = "/admin/customer"
     };
@@ -168,7 +168,7 @@ function ProductAdmin() {
             okType: "danger",
             onOk: () => {
                 setDataSource((prev: any) => {
-                    useFetch.delete(`/api/users/${record.id}`).then(s => {alert("Cập nhật thành công")}).catch(e => {
+                    useFetch.delete(`/api/users/${record.id}`).then(s => { alert("Cập nhật thành công") }).catch(e => {
                         alert("Lỗi" + e)
                     })
                     return prev.filter((customer: any) => customer.id !== record.id);
