@@ -4,12 +4,13 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Brand } from "src/common/model/Brand";
 import { ProductFilter } from "src/common/types/ProductFilterProps";
 import { useFetch } from "src/util/CustomHook";
-import Card from "../Card";
-import SelectInput from "../Select";
+import Card from "../../components/Card";
+import SelectInput from "../../components/Select";
 import { findBy_Brands_Products } from "src/api/SearchPage/route";
 import { Product } from "src/common/model/Product";
 import { Link } from "react-router-dom";
 import { BsArrowLeftCircle, BsArrowRightCircle } from "react-icons/bs";
+import { AiFillFastBackward, AiFillFastForward, AiFillForward, AiOutlineBackward } from "react-icons/ai";
 
 interface Data {
     brands: Brand[],
@@ -23,7 +24,9 @@ const Search = () => {
     const display = ["13.3 inch", "14 inch", "15.6 inch"]
     const os = ["window 11", "macOS Big Sur"]
     // useState
-    const [products, setProducts] = useState<Product[]>();
+    const [products, setProducts] = useState<any>();
+    const [flag, setFlag] = useState("list");
+    const [filter, setFilter] = useState<Product[]>();
     const [data, setData] = useState<Data>({ brands: [], products: [] });
     const [page, setPage] = useState(0);
     // useForm
@@ -32,7 +35,7 @@ const Search = () => {
     useEffect(() => {
         findBy_Brands_Products(page).then((result) => {
             setData(result);
-            setProducts(result.products.content)
+            setProducts(result.products)
         }).catch(error => console.log(error));
     }, [page]);
     // SUBMIT FORM
@@ -45,7 +48,8 @@ const Search = () => {
 
         async function init() {
             const { data: result } = await useFetch.post("/api/products/filter", data);
-            setProducts(result);
+            setFilter(result);
+            setFlag("filter")
         }
         init();
     }
@@ -111,15 +115,32 @@ const Search = () => {
                         </div>
                     </div>
                 </form>
-                <div className="row w-100">{products?.map((value, key) => (
-                    <div key={key} className="col-4">
-                        <Card id={value.id} className="mt-3" data={value} />
-                    </div>
-                ))}</div>
-                <div className="mb-3 d-flex justify-content-end">
-                    <Link to={""} onClick={() => setPage((e) => e - 1)} className="btn me-3"><BsArrowLeftCircle /></Link>
-                    <Link to={""} onClick={() => setPage((e) => e + 1)} className="btn"><BsArrowRightCircle /></Link>
-                </div>
+                {flag === "list" &&
+                    <>
+                        <div className="row w-100">{products?.content?.map((value: any, key: any) => (
+                            <div key={key} className="col-4">
+                                <Card id={value.id} className="mt-3" data={value} />
+                            </div>
+                        ))}</div>
+                        <div className="row mt-1">
+                            <span className="text-center">
+                                <button style={{ fontSize: "30px" }} onClick={() => { setPage(0) }} className="btn text-primary border-0 me-3"><AiFillFastBackward /></button>
+                                <button style={{ fontSize: "30px" }} onClick={() => { if (page > 0) setPage(page - 1) }} className="btn text-primary border-0 me-3"><AiOutlineBackward /></button>
+                                <button style={{ fontSize: "30px" }} onClick={() => { if (page < products.totalPages - 1) setPage(page + 1) }} className="btn text-primary border-0 me-3"><AiFillForward /></button>
+                                <button style={{ fontSize: "30px" }} onClick={() => { setPage(products.totalPages - 1) }} className="btn text-primary border-0"><AiFillFastForward /></button>
+                            </span>
+                        </div>
+                    </>
+                }
+                {flag === "filter" &&
+                    <>
+                        <div className="row w-100">{filter?.map((value, key) => (
+                            <div key={key} className="col-4">
+                                <Card id={value.id} className="mt-3" data={value} />
+                            </div>
+                        ))}</div>
+                    </>
+                }
             </div>
         </div >
     );

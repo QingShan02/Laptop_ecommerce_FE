@@ -1,9 +1,5 @@
-import { useEffect, useState } from "react";
-import { Product } from "src/common/model/Product";
-import Card from "src/components/Card";
-import Carousel from "src/components/Carousel";
-import { useFetch } from "src/util/CustomHook";
 import AdminLayout from "src/components/Layout/AdminLayout";
+import AdminReport from "../Admin/AdminReport";
 const AdminHome = () => {
   // const [data, setData] = useState<Product[]>();
   // useEffect(() => {
@@ -15,9 +11,8 @@ const AdminHome = () => {
   // }, []);
   return (
     <AdminLayout>
-
+      <AdminReport />
     </AdminLayout>
-    
   );
 }
 export default AdminHome;
